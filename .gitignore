@@ -3,3 +3,6 @@
 
 # CMake
 cmake-build-debug/
+
+# Data
+*.dat
