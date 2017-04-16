@@ -29,14 +29,22 @@ int main() {
     myfile << "Writing this to a file.\n";
     myfile.close();
 
-    fftw_complex *in, *out;
-    fftw_plan p;
+    fftwl_complex *in, *out;
+    fftwl_complex *in2, *out2;
+    fftwl_plan p;
+    fftwl_plan p1;
 
     int N = 8;
 
-    in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * N);
-    out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * N);
-    p = fftw_plan_dft_1d(N, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
+    in = (fftwl_complex*) fftwl_malloc(sizeof(fftwl_complex) * N);
+    out = (fftwl_complex*) fftwl_malloc(sizeof(fftwl_complex) * N);
+
+//    in2 = (fftw*) fftwl_malloc((fftwl) * N);
+
+    p = fftwl_plan_dft_1d(N, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
+
+//
+//    fftw_plan p3 = fftw_plan_dft_r2c_1d()
 
     for (int i = 0; i < N; ++i) {
         in[i][0] = 0.0;
@@ -45,17 +53,39 @@ int main() {
         out[i][1] = 0.0;
     }
 
-    // in[0][0] = 1.0 / sqrt(4.0 * d);
+    in[0][0] = 0.0 ;
     in[1][1] = 1.0;
+//    in[1][1] = 0.0;
+//    in[2][0] = 0.0;
+//    in[3][0] = 0.0;
+//    in[4][0] = 0.0;
 
-    fftw_execute(p);
+    for (int i = 0; i < N; ++i) {
+        std::cout << "i=" << i << ": " << in[i][1] << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    fftwl_execute(p);
 
     for (int i = 0; i < N; ++i) {
         std::cout << "i=" << i << ": " << out[i][0] << std::endl;
+        out[i][1] = 0.0;
+    }
+    std :: cout << std::endl;
+
+
+    fftwl_destroy_plan(p);
+
+    p1 = fftwl_plan_dft_1d(N, out, in, FFTW_BACKWARD, FFTW_ESTIMATE);
+
+    fftwl_execute(p1);
+
+    for (int i = 0; i < N; ++i) {
+        std::cout << "i=" << i << ": " << in[i][1] / 8.0 << std::endl;
     }
 
-    fftw_destroy_plan(p);
-    fftw_free(in); fftw_free(out);
+    fftwl_destroy_plan(p1);
 
     int num = 0;
 

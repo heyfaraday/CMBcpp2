@@ -17,11 +17,11 @@ y = zeros((int(N + 1), int(N / 2 + 1)))
 
 for i in range(0, int(N + 1)):
     for j in range(0, int(N / 2 + 1)):
-        x[i][j] = 2.0 * i / N * pi
-        y[i][j] = 2.0 * j / N * pi
+        x[i][j] = 2.0 * i / N * pi - pi
+        y[i][j] = 2.0 * j / N * pi - pi / 2.0
 
 for i in range(0, int(N + 1) * int(N / 2 + 1)):
-    inside_map[int(map[i][1] - 1)][int(map[i][2] - 1)] = map[i][0]
+    inside_map[int(map[i][0])][int(map[i][1])] = map[i][2]
 
 rad = 180.0 / pi
 
