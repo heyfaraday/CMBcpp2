@@ -1,8 +1,8 @@
 #include "utils.hpp"
 
-double* n_vector_generator(unsigned int dim)
+long double* n_vector_generator(unsigned int dim)
 {
-    double* ptr = new double [dim];
+    long double* ptr = new long double [dim];
 
     for (unsigned int i = 0; i < dim; ++i) {
         ptr[i] = 0.0;
@@ -11,16 +11,16 @@ double* n_vector_generator(unsigned int dim)
     return ptr;
 }
 
-void n_vector_destroyer(double* ptr)
+void n_vector_destroyer(long double* ptr)
 {
     delete [] ptr;
 }
 
-double** n_matrix_generator(unsigned int dim_1, unsigned int dim_2)
+long double** n_matrix_generator(unsigned int dim_1, unsigned int dim_2)
 {
-    double** ptr = new double* [dim_1];
+    long double** ptr = new long double* [dim_1];
     for (unsigned int i = 0; i < dim_1; ++i) {
-        ptr[i] = new double[dim_2];
+        ptr[i] = new long double[dim_2];
     }
 
     for (unsigned int i = 0; i < dim_1; ++i) {
@@ -32,7 +32,7 @@ double** n_matrix_generator(unsigned int dim_1, unsigned int dim_2)
     return ptr;
 }
 
-void n_matrix_destroyer(double** ptr, unsigned int dim_1)
+void n_matrix_destroyer(long double** ptr, unsigned int dim_1)
 {
     for (unsigned int i = 0; i < dim_1; ++i) {
         delete [] ptr[i];
