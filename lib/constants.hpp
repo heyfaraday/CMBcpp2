@@ -1,3 +1,3 @@
 #pragma once
 
-extern const double PI;
+extern const long double PI;

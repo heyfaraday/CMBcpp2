@@ -29,15 +29,16 @@ void aml_gasdev(long double** cos_ml, long double** sin_ml, long double mean, lo
         }
     }
 
-    if (nmod == npix / 2 + 1)
+    if (nmod == npix / 2 + 1) {
         std::cout << "Nyquist warning!" << std::endl;
-        sin_ml[npix / 2][npix / 2] == 0.0;
+        sin_ml[npix / 2][npix / 2] = 0.0L;
+    }
 
-    cos_ml[0][0] = 0.0;
-    cos_ml[1][0] = 0.0;
-    cos_ml[1][1] = 0.0;
+    cos_ml[0][0] = 0.0L;
+    cos_ml[1][0] = 0.0L;
+    cos_ml[1][1] = 0.0L;
 
-    sin_ml[0][0] = 0.0;
-    sin_ml[0][1] = 0.0;
-    sin_ml[1][1] = 0.0;
+    sin_ml[0][0] = 0.0L;
+    sin_ml[0][1] = 0.0L;
+    sin_ml[1][1] = 0.0L;
 }

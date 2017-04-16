@@ -21,7 +21,7 @@ int main() {
     int b = 100;
     std::cout.precision(dbl::max_digits10);
     std::cout << "Pi: " << std::scientific << d << std::endl;
-    std::cout << "a: " << std::scientific << sin(a * d / 2.0) << std::endl;
+    std::cout << "a: " << std::scientific << sinl(a * d / 2.0) << std::endl;
     std::cout << "int b: " << std::scientific << b << std::endl;
 
     std::ofstream myfile;
@@ -98,7 +98,7 @@ int main() {
 
     std::cout << num << std::endl;
 
-    double** matrix = n_matrix_generator(10, 10);
+    long double** matrix = n_matrix_generator(10, 10);
 
     for (int i = 0; i < 10; ++i) {
         std::cout << matrix[1][i] << std::endl;

@@ -5,6 +5,10 @@
 
 #include "parameters.hpp"
 
+bool is_number(std::string& s);
+
+double read_from_file(const std::string param);
+
 bool is_number(std::string& s) {
 
     if (s.empty())
@@ -15,9 +19,9 @@ bool is_number(std::string& s) {
     if (s[0] == '.')
         return false;
 
-    for (int i = 0; i < s.size(); i ++) {
+    for (int i = 0; i < int(s.size()); i ++) {
 
-        char c = s[i];
+        char c = s[static_cast<unsigned long>(i)];
 
         if (c == '.' && !trigger) {
             trigger = !trigger;
@@ -36,7 +40,7 @@ bool is_number(std::string& s) {
     return true;
 }
 
-double read_from_file (const std::string param) {
+double read_from_file(const std::string param) {
 
     std::ifstream infile("input.parameters");
     std::string str;
@@ -72,6 +76,10 @@ double read_from_file (const std::string param) {
     exit (EXIT_FAILURE);
 }
 
-const unsigned int npix = (unsigned int)read_from_file("npix");
-const unsigned int nmod = (unsigned int)read_from_file("nmod");
-const unsigned int monte_n = (unsigned int)read_from_file("monte_n");
+const unsigned int npix = static_cast<unsigned int>(read_from_file("npix"));
+const unsigned int nmod = static_cast<unsigned int>(read_from_file("nmod"));
+const unsigned int monte_n = static_cast<unsigned int>(read_from_file("monte_n"));
+
+const long double long_npix = static_cast<long double>(npix);
+const long double long_nmod = static_cast<long double>(nmod);
+const long double long_monte_n = static_cast<long double>(monte_n);

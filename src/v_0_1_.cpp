@@ -13,7 +13,7 @@
 
 int main(int argc, char const *argv[]) {
 
-    typedef std::numeric_limits<double> dbl;
+    typedef std::numeric_limits<long double> dbl;
     std::cout.precision(dbl::max_digits10);
 
     long double** map = n_matrix_generator(npix + 1, npix / 2 + 1);
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]) {
     long double** sin_lm = n_matrix_generator(nmod + 1, nmod + 1);
     long double** pml = n_matrix_generator(nmod + 1, nmod + 1);
 
-    aml_gasdev(cos_lm, sin_lm, 0.0, 1.0);
+    aml_gasdev(cos_lm, sin_lm, 0.0L, 1.0L);
 
     fft_map_forward(map, cos_lm, sin_lm);
 
@@ -29,7 +29,9 @@ int main(int argc, char const *argv[]) {
 
     io_map("out.dat", map);
 
-    std::cout << area(map, 0.0) << std::endl;
+    std::cout << area(map, 0.0L) << std::endl;
+
+    std::cout << PI << std::endl;
 
     n_matrix_destroyer(pml, nmod + 1);
     n_matrix_destroyer(cos_lm, nmod + 1);

@@ -5,7 +5,7 @@ long double* n_vector_generator(unsigned int dim)
     long double* ptr = new long double [dim];
 
     for (unsigned int i = 0; i < dim; ++i) {
-        ptr[i] = 0.0;
+        ptr[i] = 0.0L;
     }
 
     return ptr;
@@ -25,7 +25,7 @@ long double** n_matrix_generator(unsigned int dim_1, unsigned int dim_2)
 
     for (unsigned int i = 0; i < dim_1; ++i) {
         for (unsigned int j = 0; j < dim_2; ++j) {
-            ptr[i][j] = 0.0;
+            ptr[i][j] = 0.0L;
         }
     }
 

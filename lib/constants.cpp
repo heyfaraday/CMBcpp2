@@ -1,3 +1,3 @@
 #include "constants.hpp"
 
-const double PI = 3.14159265358979;
+const long double PI = 3.141592653589793116L;
