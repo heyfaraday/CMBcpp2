@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
 #include <sstream>
 
 #include "parameters.hpp"
@@ -75,3 +74,4 @@ double read_from_file (const std::string param) {
 
 const unsigned int npix = (unsigned int)read_from_file("npix");
 const unsigned int nmod = (unsigned int)read_from_file("nmod");
+const unsigned int monte_n = (unsigned int)read_from_file("monte_n");

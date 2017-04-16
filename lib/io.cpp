@@ -4,16 +4,21 @@
 
 #include "parameters.hpp"
 
-void io_map(std::ofstream file, double** map) {
+void io_map(std::string name, long double** map) {
 
-    typedef std::numeric_limits<double> dbl;
+    std::ofstream out_file;
+    out_file.open(name);
 
-    file.precision(dbl::max_digits10);
+    typedef std::numeric_limits<long double> dbl;
+
+    out_file.precision(dbl::max_digits10);
 
     for (unsigned int i = 0; i <= npix; ++i) {
         for (unsigned int j = 0; j <= npix/2; ++j) {
-            file << i << ' ' << j << ' '
-                 << std::scientific << map[i][j];
+            out_file << i << ' ' << j << ' '
+                 << std::scientific << map[i][j] << std::endl;
         }
     }
+
+    out_file.close();
 }

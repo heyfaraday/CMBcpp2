@@ -1,3 +1,5 @@
 #pragma once
 
-double area(double** map, int npix, double level);
+double area(long double** map, long double level);
+
+double length(long double** map, long double level);
