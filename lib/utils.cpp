@@ -1,3 +1,6 @@
+#include "math.h"
+#include <iostream>
+
 #include "utils.hpp"
 
 long double* n_vector_generator(unsigned int dim)
@@ -38,4 +41,29 @@ void n_matrix_destroyer(long double** ptr, unsigned int dim_1)
         delete [] ptr[i];
     }
     delete ptr;
+}
+
+long double det(long double q1, long double q2, long double u1, long double u2) {
+    return q1 * u2 - q2 * u1;
+}
+
+long double mean_t_solver(long double q1, long double q2, long double u1, long double u2, long double x) {
+    return u2 * x * x * x + (u1 + 2.0L * q2) * x * x + (2.0L * q1 - u2) * x - u1;
+}
+
+void d_solver(long double* root1, long double* root2,
+              long double q1, long double q2, long double u1, long double u2) {
+
+    long double a = 3.0L * u2;
+    long double b = 2.0L * (u1 + 2.0L * q2);
+    long double c = (2.0L * q1 - u2);
+
+    long double determinant = b * b - 4.0L * a * c;
+
+    if (determinant > 0.L) {
+        *root1 = (-b + sqrtl(determinant)) / (2.0L * a);
+        *root2 = (-b - sqrtl(determinant)) / (2.0L * a);
+    } else {
+        std::cout << "det <= 0.0L, maybe it's mistake!" << std::endl;
+    }
 }
