@@ -25,6 +25,16 @@ void aml_gasdev(long double** cos_ml, long double** sin_ml, long double mean, lo
         exit (EXIT_FAILURE);
     }
 
+    if ((nmod < 2) or (nback < 2)) {
+        std::cout << "Not enough mods!" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    if (nback < nmod) {
+        std::cout << "NBACK < NMOD!" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
     for (unsigned int m = 1; m < nmod; ++m) {
         for (unsigned int l = m; l < nmod; ++l) {
             sin_ml[m][l] = distribution(generator);

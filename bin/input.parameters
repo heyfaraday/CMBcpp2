@@ -1,3 +1,4 @@
-npix        2048
-nmod        1020
+npix        512
+nmod        20
+nback       45
 monte_n     5

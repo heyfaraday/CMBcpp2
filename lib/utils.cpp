@@ -51,7 +51,7 @@ long double mean_t_solver(long double q1, long double q2, long double u1, long d
     return u2 * x * x * x + (u1 + 2.0L * q2) * x * x + (2.0L * q1 - u2) * x - u1;
 }
 
-void d_solver(long double* root1, long double* root2,
+void d_solver(long double& root1, long double& root2,
               long double q1, long double q2, long double u1, long double u2) {
 
     long double a = 3.0L * u2;
@@ -60,10 +60,11 @@ void d_solver(long double* root1, long double* root2,
 
     long double determinant = b * b - 4.0L * a * c;
 
-    if (determinant > 0.L) {
-        *root1 = (-b + sqrtl(determinant)) / (2.0L * a);
-        *root2 = (-b - sqrtl(determinant)) / (2.0L * a);
+    if (determinant >= 0.0L) {
+        root1 = (-b + sqrtl(determinant)) / (2.0L * a);
+        root2 = (-b - sqrtl(determinant)) / (2.0L * a);
     } else {
-        std::cout << "det <= 0.0L, maybe it's mistake!" << std::endl;
+        std::cout << "det < 0.0L, maybe it's mistake!" << std::endl;
+        std::cout << determinant << " " << det(q1, q2, u1, u2) << std::endl;
     }
 }

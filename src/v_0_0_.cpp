@@ -21,7 +21,7 @@ int main() {
     int b = 100;
     std::cout.precision(dbl::max_digits10);
     std::cout << "Pi: " << std::scientific << d << std::endl;
-    std::cout << "a: " << std::scientific << sinl(a * d / 2.0) << std::endl;
+    std::cout << "a: " << std::scientific << sin(a * d / 2.0) << std::endl;
     std::cout << "int b: " << std::scientific << b << std::endl;
 
     std::ofstream myfile;
@@ -30,14 +30,13 @@ int main() {
     myfile.close();
 
     fftwl_complex *in, *out;
-    fftwl_complex *in2, *out2;
     fftwl_plan p;
     fftwl_plan p1;
 
     int N = 8;
 
-    in = (fftwl_complex*) fftwl_malloc(sizeof(fftwl_complex) * N);
-    out = (fftwl_complex*) fftwl_malloc(sizeof(fftwl_complex) * N);
+    in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(fftwl_complex) * static_cast<unsigned long int>(N)));
+    out = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(fftwl_complex) * static_cast<unsigned long int>(N)));
 
 //    in2 = (fftw*) fftwl_malloc((fftwl) * N);
 
@@ -47,14 +46,14 @@ int main() {
 //    fftw_plan p3 = fftw_plan_dft_r2c_1d()
 
     for (int i = 0; i < N; ++i) {
-        in[i][0] = 0.0;
-        in[i][1] = 0.0;
-        out[i][0] = 0.0;
-        out[i][1] = 0.0;
+        in[i][0] = 0.0L;
+        in[i][1] = 0.0L;
+        out[i][0] = 0.0L;
+        out[i][1] = 0.0L;
     }
 
-    in[0][0] = 0.0 ;
-    in[1][1] = 1.0;
+    in[0][0] = 0.0L;
+    in[1][1] = 1.0L;
 //    in[1][1] = 0.0;
 //    in[2][0] = 0.0;
 //    in[3][0] = 0.0;
@@ -70,7 +69,7 @@ int main() {
 
     for (int i = 0; i < N; ++i) {
         std::cout << "i=" << i << ": " << out[i][0] << std::endl;
-        out[i][1] = 0.0;
+        out[i][1] = 0.0L;
     }
     std :: cout << std::endl;
 
@@ -82,7 +81,7 @@ int main() {
     fftwl_execute(p1);
 
     for (int i = 0; i < N; ++i) {
-        std::cout << "i=" << i << ": " << in[i][1] / 8.0 << std::endl;
+        std::cout << "i=" << i << ": " << in[i][1] / 8.0L << std::endl;
     }
 
     fftwl_destroy_plan(p1);
@@ -90,7 +89,7 @@ int main() {
     int num = 0;
 
     for (int j = 0; j < N; ++j) {
-        if (out[j][0] > 0.0)
+        if (out[j][0] > 0.0L)
         {
             num = num + 1;
         }

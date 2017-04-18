@@ -1,12 +1,13 @@
-from numpy import genfromtxt, zeros
+from numpy import genfromtxt, zeros, size
 
 from math import pi
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 map_from_file = genfromtxt('bin/out.dat')
+points_from_file = genfromtxt('bin/points_out.dat').T
 
-N = 2048
+N = 512
 projection = 'cyl'  # 'cyl', 'moll', 'ortho'
 save_as_png = False
 save_as_svg = False
@@ -35,8 +36,16 @@ ax.axis('off')
 cmbmap = Basemap(lon_0=0, resolution='l')
 cmbmap.contourf(x * rad, y * rad, inside_map, 512, cmap=plt.cm.jet, latlon=True)
 
-# cmb_map = Basemap(projection=projection, lon_0=0.0, lat_0=0.0, resolution='l')
-# cmb_map.contourf(x * rad, y * rad, inside_map, 1024, cmap=plt.cm.jet, latlon=True)
+marker = ''
+
+for i in range(0, size(points_from_file[0])):
+    if points_from_file[2][i] == 0:
+        marker = '.'
+    elif points_from_file[2][i] == 1:
+        marker = 'x'
+    elif points_from_file[2][i] == 2:
+        marker = '+'
+    cmbmap.scatter((points_from_file[0][i] - pi) * rad, (points_from_file[1][i] - pi / 2.0) * rad, marker=marker)
 
 if save_as_png:
     plt.savefig('out.png', dpi=300)

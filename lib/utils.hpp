@@ -12,5 +12,5 @@ long double det(long double q1, long double q2, long double u1, long double u2);
 
 long double mean_t_solver(long double q1, long double q2, long double u1, long double u2, long double x);
 
-void d_solver(long double* root1, long double* root2,
+void d_solver(long double& root1, long double& root2,
               long double q1, long double q2, long double u1, long double u2);

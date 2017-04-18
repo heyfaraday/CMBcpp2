@@ -12,7 +12,7 @@
 #include "aml.hpp"
 #include "functionals.hpp"
 
-int main(int argc, char const *argv[]) {
+int main() {
 
     typedef std::numeric_limits<long double> dbl;
     std::cout.precision(dbl::max_digits10);
@@ -25,11 +25,11 @@ int main(int argc, char const *argv[]) {
 
     aml_gasdev(cos_lm, sin_lm, 0.0L, 1.0L);
 
-    for (unsigned int m = 0; m < nmod; ++m) {
-        for (unsigned int l = 0; l < nmod; ++l) {
-            std::cout << "m = " << m << ", l = " << l << " alm: " << cos_lm[m][l] << ", " << sin_lm[m][l] << std::endl;
-        }
-    }
+//    for (unsigned int m = 0; m < nmod; ++m) {
+//        for (unsigned int l = 0; l < nmod; ++l) {
+//            std::cout << "m = " << m << ", l = " << l << " alm: " << cos_lm[m][l] << ", " << sin_lm[m][l] << std::endl;
+//        }
+//    }
 
     fft_map_forward(map_1, cos_lm, sin_lm);
     fft_map_yy_forward(map_2, cos_lm, sin_lm);
