@@ -14,22 +14,57 @@ long double area(long double** map, long double level) {
 
     long double sum_without_norm = 0.0L;
     long double norm = 0.0L;
-    long double theta;
 
-    for (unsigned int j = 1; j < npix / 2; ++j) {
+    for (unsigned int i = 0; i < npix; ++i) {
 
-        long double long_j = static_cast<long double>(j);
-
-        theta = 2.0L * long_j * PI / long_npix;
-
-        for (unsigned int i = 0; i < npix; ++i) {
+        for (unsigned int j = 1; j < npix / 2; ++j) {
 
             if (map[i][j] > level)
-                sum_without_norm += sinl(theta);
+                sum_without_norm = sum_without_norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
 
             if (map[i][j] != 0.0L)
-                norm = norm + sinl(theta);
+                norm = norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
         }
+    }
+
+    return sum_without_norm / norm;
+}
+
+// Написать аналогичные этим функции для theta
+
+
+long double area(long double** map, long double level, unsigned int l_1, unsigned int l_2) {
+
+    long double sum_without_norm = 0.0L;
+    long double norm = 0.0L;
+
+    if (l_1 > l_2) {
+        for (unsigned int i = 0; i < npix; ++i) {
+
+            for (unsigned int j = l_1; j < l_2; ++j) {
+
+                if (map[i][j] > level)
+                    sum_without_norm = sum_without_norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
+
+                if (map[i][j] != 0.0L)
+                    norm = norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
+            }
+        }
+    } else if (l_1 < l_2) {
+        for (unsigned int i = 0; i < npix; ++i) {
+
+            for (unsigned int j = l_2; j < l_1; ++j) {
+
+                if (map[i][j] > level)
+                    sum_without_norm = sum_without_norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
+
+                if (map[i][j] != 0.0L)
+                    norm = norm + sinl(2.0L * static_cast<long double>(j) * PI / long_npix);
+            }
+        }
+    } else {
+        std::cout << "Warning: l_1 equal l_2, maybe it's mistake!" << std::endl;
+        return 0;
     }
 
     return sum_without_norm / norm;
@@ -625,3 +660,4 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
     out_file.close();
 }
+

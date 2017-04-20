@@ -1,4 +1,6 @@
 npix        512
-nmod        20
-nback       45
-monte_n     5
+nmod        100
+nback       2048
+nmonte      5
+nring       20
+hring       20

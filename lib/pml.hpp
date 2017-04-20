@@ -23,3 +23,7 @@ void pml_yy_gen(long double theta, long double** array);
 void pml_xy_gen(unsigned int j, long double** array);
 
 void pml_xy_gen(long double theta, long double** array);
+
+void x_1_ml_gen(unsigned int j, long double** array);
+
+void x_2_ml_gen(unsigned int j, long double** array);

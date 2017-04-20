@@ -9,3 +9,6 @@ cmake-build-debug/
 
 # Planck data
 data/
+
+# Empty initialization for python
+py/__init__.py

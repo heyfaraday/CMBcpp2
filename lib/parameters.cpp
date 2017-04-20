@@ -79,9 +79,13 @@ double read_from_file(const std::string param) {
 const unsigned int npix = static_cast<unsigned int>(read_from_file("npix"));
 const unsigned int nmod = static_cast<unsigned int>(read_from_file("nmod"));
 const unsigned int nback = static_cast<unsigned int>(read_from_file("nback"));
-const unsigned int monte_n = static_cast<unsigned int>(read_from_file("monte_n"));
+const unsigned int nmonte = static_cast<unsigned int>(read_from_file("nmonte"));
+const unsigned int nring = static_cast<unsigned int>(read_from_file("nring"));
+const unsigned int hring = static_cast<unsigned int>(read_from_file("hring"));
 
 const long double long_npix = static_cast<long double>(npix);
 const long double long_nmod = static_cast<long double>(nmod);
 const long double long_nback = static_cast<long double>(nback);
-const long double long_monte_n = static_cast<long double>(monte_n);
+const long double long_nmonte = static_cast<long double>(nmonte);
+const long double long_nring = static_cast<long double>(nring);
+const long double long_hring = static_cast<long double>(hring);

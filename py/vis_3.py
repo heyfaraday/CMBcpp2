@@ -33,7 +33,7 @@ fig.subplots_adjust(
 ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
 ax.axis('off')
 
-cmbmap = Basemap(lon_0=0, resolution='l')
+cmbmap = Basemap(projection='ortho', lat_0=45, lon_0=0.0, resolution='l')
 cmbmap.contourf(x * rad, y * rad, inside_map, 512, cmap=plt.cm.jet, latlon=True)
 
 marker = ''

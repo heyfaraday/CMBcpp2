@@ -48,7 +48,7 @@ int main() {
     fft_map_backward_n(q, q_cos_ml, q_sin_ml);
     fft_map_backward_n(u, u_cos_ml, u_sin_ml);
 
-    io_map("out.dat", p);
+    o_map("out.dat", p);
 
     singular_points_classifier(q, u, q_cos_ml, q_sin_ml, u_cos_ml, u_sin_ml, "singular_points_out.dat");
 

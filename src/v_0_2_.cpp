@@ -42,7 +42,7 @@ int main() {
     int j = 200;
     std::cout << map_xy[i][j] << " " << fft_point_xy_forward(2.0L * PI * i / long_npix, 2.0L * PI * j / long_npix, cos_ml, sin_ml);
 
-    io_map("out.dat", map);
+    o_map("out.dat", map);
 
     n_matrix_destroyer(pml, nmod);
     n_matrix_destroyer(cos_ml, nmod);

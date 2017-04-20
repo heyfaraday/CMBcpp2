@@ -54,7 +54,7 @@ void pml_gen(unsigned int j, long double** array) {
 
     for (unsigned int m = 1; m < nmod ; ++m) {
         for (unsigned int l = m; l < nmod; ++l) {
-            array[m][l] = array[m][l] * sqrtl(2.0L);
+            array[m][l] = array[m][l];// * sqrtl(2.0L);
         }
     }
 }
@@ -310,6 +310,46 @@ void pml_xy_gen(long double theta, long double** array) {
         for (unsigned int m = 0; m <= l; ++m) {
             long_m = static_cast<long double>(m);
             array[m][l] = long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
+                                                  (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
+        }
+    }
+    n_matrix_destroyer(pml, nmod);
+}
+
+void x_1_ml_gen(unsigned int j, long double** array) {
+
+    long double long_j = static_cast<long double>(j);
+    long double theta = 2.0L * long_j * PI / long_npix;
+
+    long double** pml_xx = n_matrix_generator(nmod, nmod);
+    long double** pml_yy = n_matrix_generator(nmod, nmod);
+    pml_xx_gen(j, pml_xx);
+    pml_yy_gen(j, pml_yy);
+
+    for (unsigned int l = 2; l < nmod ; ++l) {
+        for (unsigned int m = 0; m <= l; ++m) {
+            array[m][l] = pml_xx[m][l] - pml_yy[m][l];
+        }
+    }
+    n_matrix_destroyer(pml_xx, nmod);
+    n_matrix_destroyer(pml_yy, nmod);
+}
+
+void x_2_ml_gen(unsigned int j, long double** array) {
+
+    long double long_j = static_cast<long double>(j);
+    long double theta = 2.0L * long_j * PI / long_npix;
+    long double long_m;
+    long double long_l;
+
+    long double** pml = n_matrix_generator(nmod, nmod);
+    pml_gen(j, pml);
+
+    for (unsigned int l = 2; l < nmod ; ++l) {
+        long_l = static_cast<long double>(l);
+        for (unsigned int m = 0; m <= l; ++m) {
+            long_m = static_cast<long double>(m);
+            array[m][l] = 2.0L * long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
                                                   (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
         }
     }

@@ -2,6 +2,8 @@
 
 long double area(long double** map, long double level);
 
+long double area(long double** map, long double level, unsigned int l_1, unsigned int l_2);
+
 long double length(long double** map, long double level);
 
 int condition_1(long double xx, long double yy, long double xy);

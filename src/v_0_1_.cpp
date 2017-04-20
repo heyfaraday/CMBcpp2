@@ -42,7 +42,7 @@ int main() {
 
     fft_map_backward(map_1, cos_lm, sin_lm);
 
-    io_map("out.dat", map_1);
+    o_map("out.dat", map_1);
 
     std::cout << area(map_1, 0.0L) << std::endl;
     std::cout << length(map_1, 0.0L) << std::endl;

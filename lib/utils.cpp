@@ -60,11 +60,11 @@ void d_solver(long double& root1, long double& root2,
 
     long double determinant = b * b - 4.0L * a * c;
 
-    if (determinant >= 0.0L) {
+    if (determinant > 0.0L) {
         root1 = (-b + sqrtl(determinant)) / (2.0L * a);
         root2 = (-b - sqrtl(determinant)) / (2.0L * a);
     } else {
-        std::cout << "det < 0.0L, maybe it's mistake!" << std::endl;
-        std::cout << determinant << " " << det(q1, q2, u1, u2) << std::endl;
+        root1 = -1.0L;
+        root2 = 1.0L;
     }
 }
