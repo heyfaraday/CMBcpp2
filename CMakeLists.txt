@@ -4,7 +4,7 @@ project(CMBcpp)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set (CMAKE_CXX_FLAGS "-Weverything -Ofast")
+set (CMAKE_CXX_FLAGS "-Weverything")
 
 include_directories(/usr/local/cHealpix/include)
 

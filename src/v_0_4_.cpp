@@ -26,13 +26,13 @@ int main() {
     unsigned int m = 20;
     unsigned int l = 50;
     long double theta;
-//    for (unsigned int j = 1; j < npix / 2; ++j) {
-//        theta = 2.0L * j * PI / long_npix;
-//        x_1_ml_gen(j, x_1_ml);
-//        x_2_ml_gen(j, x_2_ml);
-//        sum += (x_1_ml[m][l] + x_2_ml[m][l]) * (x_1_ml[m+1][l+1] + x_2_ml[m+1][l+1]) * sinl(theta);
-//        norm += sinl(theta);
-//    }
+    for (unsigned int j = 1; j < npix / 2; ++j) {
+        theta = 2.0L * j * PI / long_npix;
+        x_1_ml_gen(j, x_1_ml);
+        x_2_ml_gen(j, x_2_ml);
+        sum += (x_1_ml[m][l] + x_2_ml[m][l]) * (x_1_ml[m+1][l+1] + x_2_ml[m+1][l+1]) * sinl(theta);
+        norm += sinl(theta);
+    }
 
 
     x_1_ml_gen(30, x_2_ml);

@@ -1,5 +1,5 @@
 npix        128
-nmod        2
+nmod        10
 nback       10
 nmonte      5
 nring       10
