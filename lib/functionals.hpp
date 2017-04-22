@@ -18,8 +18,14 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
 void points_classifier(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
                        std::string name, unsigned int l_1, unsigned int l_2);
 
+void level_points_classifier(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+                             long double level, std::string name);
+
 void singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
                                 long double** u_cos_lm, long double** u_sin_lm, std::string name);
+
+void level_singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
+                                      long double** u_cos_lm, long double** u_sin_lm, long double level, std::string name);
 
 void singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
                                 long double** u_cos_lm, long double** u_sin_lm, std::string name,

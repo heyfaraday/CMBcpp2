@@ -29,7 +29,7 @@ int main() {
 
     std::cout << area(map, 0.0L) << std::endl;
 
-    circles_area(map, 0.0L, "area.dat");
+    level_area(map, "area.dat");
 
     std::cout << length(map, 0.0L) << std::endl;
 
@@ -57,7 +57,6 @@ int main() {
     for (int i = 0; i < 8; ++i) {
         std::cout << "out. real " << out[i][0] << std::endl;
     }
-
 
 
     fftwl_destroy_plan(p);

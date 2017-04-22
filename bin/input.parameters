@@ -4,3 +4,6 @@ nback       10
 nmonte      5
 nring       10
 hring       10
+lower_level     -1.0
+top_level       1.0
+nlevel      20

@@ -93,3 +93,7 @@ const long double long_nring = static_cast<long double>(nring);
 const long double long_hring = static_cast<long double>(hring);
 
 const long double map_parameter = 2.0L * PI / long_npix;
+
+const long double lower_level = static_cast<long double>(read_from_file("lower_level"));
+const long double top_level = static_cast<long double>(read_from_file("top_level"));
+const long double nlevel = static_cast<long double>(read_from_file("nlevel"));

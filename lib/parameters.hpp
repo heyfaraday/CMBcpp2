@@ -15,3 +15,7 @@ extern const long double long_nring;
 extern const long double long_hring;
 
 extern const long double map_parameter;
+
+extern const long double lower_level;
+extern const long double top_level;
+extern const long double nlevel;
