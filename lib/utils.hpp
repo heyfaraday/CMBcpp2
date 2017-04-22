@@ -14,3 +14,5 @@ long double mean_t_solver(long double q1, long double q2, long double u1, long d
 
 void d_solver(long double& root1, long double& root2,
               long double q1, long double q2, long double u1, long double u2);
+
+bool is_equal(long double x, long double y);

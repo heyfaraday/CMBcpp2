@@ -1,4 +1,4 @@
-#include "math.h"
+#include <cmath>
 
 #include "pml.hpp"
 
@@ -11,7 +11,7 @@ long double coef1(unsigned int l, unsigned int m);
 void pml_gen(unsigned int j, long double** array) {
 
     long double long_j = static_cast<long double>(j);
-    long double theta = 2.0L * long_j * PI / long_npix;
+    long double theta = map_parameter * long_j;
     long double long_m;
     long double long_l;
 

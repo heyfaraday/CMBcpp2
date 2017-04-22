@@ -1,5 +1,5 @@
 #include <fftw3.h>
-#include <math.h>
+#include <cmath>
 
 #include "fft.hpp"
 
@@ -14,7 +14,7 @@ void fft_map_forward(long double** map, long double** cos_ml, long double** sin_
     fftwl_complex* in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*in) * npix));
     fftwl_complex* out = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*out) * npix));
     fftwl_plan p = fftwl_plan_dft_1d(int(npix), in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-    // FFTW_MEASURE, FFTW_PATIENT, FFTW_EXHAUSTIVE
+    // FFTW_ESTIMATE, FFTW_MEASURE, FFTW_PATIENT, FFTW_EXHAUSTIVE
 
     for (unsigned int i = 0; i < npix; ++i) {
         in[i][0] = 0.0L;

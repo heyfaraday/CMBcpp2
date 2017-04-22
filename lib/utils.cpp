@@ -1,5 +1,5 @@
-#include "math.h"
-#include <iostream>
+#include <cmath>
+#include <limits>
 
 #include "utils.hpp"
 
@@ -67,4 +67,8 @@ void d_solver(long double& root1, long double& root2,
         root1 = -1.0L;
         root2 = 1.0L;
     }
+}
+
+bool is_equal(long double x, long double y) {
+    return std::fabsl(x - y) < std::numeric_limits<long double>::epsilon();
 }

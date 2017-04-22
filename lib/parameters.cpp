@@ -5,6 +5,8 @@
 
 #include "parameters.hpp"
 
+#include "constants.hpp"
+
 bool is_number(std::string& s);
 
 double read_from_file(const std::string param);
@@ -89,3 +91,5 @@ const long double long_nback = static_cast<long double>(nback);
 const long double long_nmonte = static_cast<long double>(nmonte);
 const long double long_nring = static_cast<long double>(nring);
 const long double long_hring = static_cast<long double>(hring);
+
+const long double map_parameter = 2.0L * PI / long_npix;

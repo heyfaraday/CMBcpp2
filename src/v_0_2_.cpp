@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <chealpix.h>
-#include "math.h"
+#include <cmath>
 
 #include <fft.hpp>
 #include <utils.hpp>
