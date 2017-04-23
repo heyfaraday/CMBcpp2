@@ -4,8 +4,8 @@ from math import pi
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-map_from_file = genfromtxt('bin/out.dat')
-points_from_file = genfromtxt('bin/points_out.dat').T
+map_from_file = genfromtxt('../bin/out.dat')
+points_from_file = genfromtxt('../bin/points_out.dat').T
 
 N = 512
 projection = 'cyl'  # 'cyl', 'moll', 'ortho'

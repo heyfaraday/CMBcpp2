@@ -40,7 +40,7 @@ int main() {
 
     int i = 200;
     int j = 200;
-    std::cout << map_xy[i][j] << " " << fft_point_xy_forward(2.0L * PI * i / long_npix, 2.0L * PI * j / long_npix, cos_ml, sin_ml);
+    std::cout << map_yy[i][j] << " " << fft_point_yy_forward(2.0L * PI * i / long_npix, 2.0L * PI * j / long_npix, cos_ml, sin_ml);
 
     o_map("out.dat", map);
 

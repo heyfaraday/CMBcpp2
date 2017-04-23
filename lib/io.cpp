@@ -18,7 +18,7 @@ void o_map(std::string name, long double** map) {
 
     for (unsigned int i = 0; i <= npix; ++i) {
         for (unsigned int j = 0; j <= npix / 2; ++j) {
-            out_file << i << ' ' << j << ' '
+            out_file << i << "  " << j << "  "
                  << std::scientific << map[i][j] << std::endl;
         }
     }
@@ -58,7 +58,7 @@ void o_aml(std::string name, long double** aml) {
 
     for (unsigned int m = 0; m < nmod; ++m) {
         for (unsigned int l = 0; l < nmod; ++l) {
-            out_file << m << ' ' << l << ' '
+            out_file << m << "  " << l << "  "
                      << std::scientific << aml[m][l] << std::endl;
         }
     }
@@ -82,6 +82,46 @@ void i_aml(std::string name, long double** aml) {
         stream >> m;
         stream >> l;
         stream >> aml_;
-        aml[m][l] = aml_;
+        if (m < nmod and l < nmod) {
+            aml[m][l] = aml_;
+        }
+    }
+}
+
+void o_cl(std::string name, long double* cl) {
+
+    std::ofstream out_file;
+    out_file.open(name);
+
+    typedef std::numeric_limits<long double> dbl;
+
+    out_file.precision(dbl::max_digits10);
+
+    for (unsigned int l = 0; l < nmod; ++l) {
+        out_file << l << "  "
+                 << std::scientific << cl[l] << std::endl;
+    }
+
+    out_file.close();
+
+}
+
+void i_cl(std::string name, long double* cl) {
+
+    unsigned int l;
+    long double cl_;
+
+    std::ifstream in_file;
+    in_file.open(name);
+
+    std::string line;
+
+    while(std::getline(in_file, line)) {
+        std::stringstream stream(line);
+        stream >> l;
+        stream >> cl_;
+        if (l < nmod) {
+            cl[l] = cl_;
+        }
     }
 }

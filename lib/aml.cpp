@@ -47,7 +47,7 @@ void aml_gasdev(long double** cos_ml, long double** sin_ml, long double mean, lo
 
     cos_ml[0][0] = 0.0L;
     cos_ml[0][1] = 0.0L;
-    cos_ml[1][1] = 1.0L;
+    cos_ml[1][1] = 0.0L;
 
     sin_ml[0][0] = 0.0L;
     sin_ml[0][1] = 0.0L;
@@ -100,5 +100,41 @@ void aml_from_cl(long double** cos_ml, long double** sin_ml, long double* cl) {
 
     sin_ml[0][0] = 0.0L;
     sin_ml[0][1] = 0.0L;
+    sin_ml[1][1] = 0.0L;
+}
+
+void healpix_transform(long double** aml) {
+
+    for (unsigned int m = 0; m < nmod; ++m) {
+        for (unsigned int l = 0; l < nmod; ++l) {
+            if (l % 2 == 1) {
+                aml[m][l] = - aml[m][l];
+            }
+        }
+    }
+}
+
+void add_monopole(long double** cos_ml, long double** sin_ml, long double aml_0_0) {
+    cos_ml[0][0] = aml_0_0;
+    sin_ml[0][0] = 0.0L;
+}
+
+void remove_monopole(long double** cos_ml, long double** sin_ml) {
+    cos_ml[0][0] = 0.0L;
+    sin_ml[0][0] = 0.0L;
+}
+
+void add_dipole(long double** cos_ml, long double** sin_ml,
+                long double aml_cos_0_1, long double aml_cos_1_1, long double aml_sin_1_1) {
+    cos_ml[0][1] = aml_cos_0_1;
+    sin_ml[0][1] = 0.0L;
+    cos_ml[1][1] = aml_cos_1_1;
+    sin_ml[1][1] = aml_sin_1_1;
+}
+
+void remove_dipole(long double** cos_ml, long double** sin_ml) {
+    cos_ml[0][1] = 0.0L;
+    sin_ml[0][1] = 0.0L;
+    cos_ml[1][1] = 0.0L;
     sin_ml[1][1] = 0.0L;
 }

@@ -1337,10 +1337,10 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
                 if (flag == 1) {
 
-                    qx = fft_point_x_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    qy = fft_point_y_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    ux = fft_point_x_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
-                    uy = fft_point_y_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 
@@ -1601,10 +1601,10 @@ void level_singular_points_classifier(long double** q, long double** u, long dou
                     q_pr = fft_point_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
                     u_pr = fft_point_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
 
-                    qx = fft_point_x_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    qy = fft_point_y_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    ux = fft_point_x_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
-                    uy = fft_point_y_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 
@@ -1870,10 +1870,10 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
                 if (flag == 1) {
 
-                    qx = fft_point_x_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    qy = fft_point_y_forward_n(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    ux = fft_point_x_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
-                    uy = fft_point_y_forward_n(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 

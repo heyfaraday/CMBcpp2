@@ -45,8 +45,8 @@ int main() {
         }
     }
 
-    fft_map_backward_n(q, q_cos_ml, q_sin_ml);
-    fft_map_backward_n(u, u_cos_ml, u_sin_ml);
+    fft_map_backward(q, q_cos_ml, q_sin_ml, nback);
+    fft_map_backward(u, u_cos_ml, u_sin_ml, nback);
 
     o_map("out.dat", p);
 

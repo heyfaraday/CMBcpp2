@@ -4,8 +4,8 @@ from math import pi
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-map_from_file = genfromtxt('bin/out.dat')
-points_from_file = genfromtxt('bin/singular_points_out.dat').T
+map_from_file = genfromtxt('../bin/out.dat')
+points_from_file = genfromtxt('../bin/singular_points_out.dat').T
 
 N = 512
 projection = 'cyl'  # 'cyl', 'moll', 'ortho'
@@ -33,7 +33,7 @@ fig.subplots_adjust(
 ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
 ax.axis('off')
 
-cmbmap = Basemap(projection='ortho', lat_0=45, lon_0=0.0, resolution='l')
+cmbmap = Basemap(projection='cyl', lat_0=45, lon_0=0.0, resolution='l')
 cmbmap.contourf(x * rad, y * rad, inside_map, 512, cmap=plt.cm.jet, latlon=True)
 
 marker = ''
