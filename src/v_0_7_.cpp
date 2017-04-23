@@ -9,6 +9,7 @@
 #include "constants.hpp"
 #include "functionals.hpp"
 #include "aml.hpp"
+#include "spectra.hpp"
 
 int main() {
 
@@ -28,9 +29,14 @@ int main() {
     long double** pml = n_matrix_generator(nmod, nmod);
     long double** pml_plus = n_matrix_generator(nmod, nmod);
     long double** pml_minus = n_matrix_generator(nmod, nmod);
+    long double* cl = n_vector_generator(nmod);
 
-//    i_aml("alm_T0B_T_cos.dat", cos_ml);
-//    i_aml("alm_T0B_T_sin.dat", sin_ml);
+    i_aml("alm_T0B_T_cos.dat", cos_ml);
+    i_aml("alm_T0B_T_sin.dat", sin_ml);
+
+    aml_to_cl(cos_ml, sin_ml, cl);
+
+//    o_cl("my_cl.dat", cl);
 
 //    healpix_transform(cos_ml);
 //    healpix_transform(sin_ml);
@@ -47,19 +53,19 @@ int main() {
     fft_map_forward(map, cos_ml, sin_ml);
     std::cout << "map_end" << std::endl;
 
-    for (int m = 0; m < 3; ++m) {
-        for (int l = 0; l < 3; ++l) {
-            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
-        }
-    }
-
-    fft_map_backward(map, cos_ml, sin_ml);
-
-    for (int m = 0; m < 3; ++m) {
-        for (int l = 0; l < 3; ++l) {
-            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
-        }
-    }
+//    for (int m = 0; m < 3; ++m) {
+//        for (int l = 0; l < 3; ++l) {
+//            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
+//        }
+//    }
+//
+//    fft_map_backward(map, cos_ml, sin_ml);
+//
+//    for (int m = 0; m < 3; ++m) {
+//        for (int l = 0; l < 3; ++l) {
+//            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
+//        }
+//    }
 
     o_map("map_dohua.dat", map);
 
@@ -76,6 +82,7 @@ int main() {
     n_matrix_destroyer(pml, nmod);
     n_matrix_destroyer(pml_plus, nmod);
     n_matrix_destroyer(pml_minus, nmod);
+    n_vector_destroyer(cl);
 
     return 0;
 }

@@ -102,9 +102,14 @@ long double sigma_2_aml(long double** cos_ml, long double** sin_ml) {
 void aml_to_cl(long double** cos_ml, long double** sin_ml, long double* cl) {
 
     for (unsigned int l = 0; l < nmod; ++l) {
-        for (unsigned int m = 0; m < nmod; ++m) {
-            cl[l] = cl[l] + cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l];
+        cl[l] = 0.0L;
+    }
+
+    for (unsigned int l = 0; l < nmod; ++l) {
+        for (unsigned int m = 1; m < nmod; ++m) {
+            cl[l] = cl[l] + (cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l]) * 2.0L;  // * 2.0 from healpix
         }
+        cl[l] = cl[l] + (cos_ml[0][l] * cos_ml[0][l]);
         cl[l] = cl[l] / (2.0L * l + 1.0L);
     }
 }
