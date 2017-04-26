@@ -825,6 +825,294 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
     out_file.close();
 }
 
+void points_classifier_p(long double** map_x, long double** map_y, long double** q_cos_ml, long double** q_sin_ml,
+                         long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist,
+                         unsigned int n, long double sigma_p) {
+
+    std::ofstream out_file;
+    out_file.open(name);
+    typedef std::numeric_limits<long double> dbl;
+    out_file.precision(dbl::max_digits10);
+
+    long double phi;
+    long double theta;
+
+    int z_x = 0;
+    int z_y = 0;
+    int flag = 0;
+
+    long double phi1a = 0.0L;
+    long double phi2a = 0.0L;
+    long double theta1a = 0.0L;
+    long double theta2a = 0.0L;
+    long double phi1b = 0.0L;
+    long double phi2b = 0.0L;
+    long double theta1b = 0.0L;
+    long double theta2b = 0.0L;
+
+    long double phi_answer;
+    long double theta_answer;
+
+    long double q_answer;
+    long double u_answer;
+    long double q_x_answer;
+    long double q_y_answer;
+    long double u_x_answer;
+    long double u_y_answer;
+    long double q_xx_answer;
+    long double q_yy_answer;
+    long double q_xy_answer;
+    long double u_xx_answer;
+    long double u_yy_answer;
+    long double u_xy_answer;
+    long double p_answer;
+
+    long double fxx;
+    long double fyy;
+    long double fxy;
+
+    int condition_answer = 0;
+
+    for (unsigned int i = 0; i < npix; ++i) {
+        for (unsigned int j = 1; j < npix / 2 - 1; ++j) {
+
+            z_x = 0;
+            z_y = 0;
+
+            phi = 2.0L * PI * i / long_npix;
+            theta = 2.0L * PI * j / long_npix;
+
+            if (map_x[i][j] * map_x[i][j + 1] < 0.0L) {
+
+                if (map_x[i][j] * map_x[i + 1][j] < 0.0L) {
+
+                    phi1a = phi;
+                    theta1a = theta + map_parameter * fabsl(map_x[i][j])
+                                      / (fabsl(map_x[i][j]) + fabsl(map_x[i][j + 1]));
+
+                    phi1b = phi + map_parameter * fabsl(map_x[i][j])
+                                  / (fabsl(map_x[i][j]) + fabsl(map_x[i + 1][j]));
+                    theta1b = theta;
+
+                    z_x = 1;
+
+                } else if (map_x[i + 1][j] * map_x[i + 1][j + 1] < 0.0L) {
+
+                    phi1a = phi;
+                    theta1a = theta + map_parameter * fabsl(map_x[i][j])
+                                      / (fabsl(map_x[i][j]) + fabsl(map_x[i][j + 1]));
+
+                    phi1b = phi + map_parameter;
+                    theta1b = theta + map_parameter * fabsl(map_x[i + 1][j])
+                                      / (fabsl(map_x[i + 1][j]) + fabsl(map_x[i + 1][j + 1]));
+
+                    z_x = 1;
+
+                } else if (map_x[i][j + 1] * map_x[i + 1][j + 1] < 0.0L) {
+
+                    phi1a = phi;
+                    theta1a = theta + map_parameter * fabsl(map_x[i][j])
+                                      / (fabsl(map_x[i][j]) + fabsl(map_x[i][j + 1]));
+
+                    phi1b = phi + map_parameter * fabsl(map_x[i][j + 1])
+                                  / (fabsl(map_x[i][j + 1]) + fabsl(map_x[i + 1][j + 1]));
+                    theta1b = theta + map_parameter;
+
+                    z_x = 1;
+
+                }
+            } else if (map_x[i][j] * map_x[i + 1][j] < 0.0L) {
+
+                if (map_x[i + 1][j] * map_x[i + 1][j + 1] < 0.0L) {
+
+                    phi1a = phi + map_parameter * fabsl(map_x[i][j])
+                                  / (fabsl(map_x[i][j]) + fabsl(map_x[i + 1][j]));
+                    theta1a = theta;
+
+                    phi1b = phi + map_parameter;
+                    theta1b = theta + map_parameter * fabsl(map_x[i + 1][j])
+                                      / (fabsl(map_x[i + 1][j]) + fabsl(map_x[i + 1][j + 1]));
+
+                    z_x = 1;
+
+                } else if (map_x[i][j + 1] * map_x[i + 1][j + 1] < 0.0L) {
+
+                    phi1a = phi + map_parameter * fabsl(map_x[i][j])
+                                  / (fabsl(map_x[i][j]) + fabsl(map_x[i + 1][j]));
+                    theta1a = theta;
+
+                    phi1b = phi + map_parameter * fabsl(map_x[i][j + 1])
+                                  / (fabsl(map_x[i][j + 1]) + fabsl(map_x[i + 1][j + 1]));
+                    theta1b = theta + map_parameter;
+
+                    z_x = 1;
+                }
+            } else if (map_x[i + 1][j] * map_x[i + 1][j + 1] < 0.0L) {
+
+                if (map_x[i][j + 1] * map_x[i + 1][j + 1] < 0.0L) {
+
+                    phi1a = phi + map_parameter;
+                    theta1a = theta + map_parameter * fabsl(map_x[i + 1][j])
+                                      / (fabsl(map_x[i + 1][j]) + fabsl(map_x[i + 1][j + 1]));
+
+                    phi1b = phi + map_parameter * fabsl(map_x[i][j + 1])
+                                  / (fabsl(map_x[i][j + 1]) + fabsl(map_x[i + 1][j + 1]));
+                    theta1b = theta + map_parameter;
+
+                    z_x = 1;
+                }
+            }
+
+            if (map_y[i][j] * map_y[i][j + 1] < 0.0L) {
+
+                if (map_y[i][j] * map_y[i + 1][j] < 0.0L) {
+
+                    phi2a = phi;
+                    theta2a = theta + map_parameter * fabsl(map_y[i][j])
+                                      / (fabsl(map_y[i][j]) + fabsl(map_y[i][j + 1]));
+
+                    phi2b = phi + map_parameter * fabsl(map_y[i][j])
+                                  / (fabsl(map_y[i][j]) + fabsl(map_y[i + 1][j]));
+                    theta2b = theta;
+
+                    z_y = 1;
+
+                } else if (map_y[i + 1][j] * map_y[i + 1][j + 1] < 0.0L) {
+
+                    phi2a = phi;
+                    theta2a = theta + map_parameter * fabsl(map_y[i][j])
+                                      / (fabsl(map_y[i][j]) + fabsl(map_y[i][j + 1]));
+
+                    phi2b = phi + map_parameter;
+                    theta2b = theta + map_parameter * fabsl(map_y[i + 1][j])
+                                      / (fabsl(map_y[i + 1][j]) + fabsl(map_y[i + 1][j + 1]));
+
+                    z_y = 1;
+
+                } else if (map_y[i][j + 1] * map_y[i + 1][j + 1] < 0.0L) {
+
+                    phi2a = phi;
+                    theta2a = theta + map_parameter * fabsl(map_y[i][j])
+                                      / (fabsl(map_y[i][j]) + fabsl(map_y[i][j + 1]));
+
+                    phi2b = phi + map_parameter * fabsl(map_y[i][j + 1])
+                                  / (fabsl(map_y[i][j + 1]) + fabsl(map_y[i + 1][j + 1]));
+                    theta2b = theta + map_parameter;
+
+                    z_y = 1;
+
+                }
+            } else if (map_y[i][j] * map_y[i + 1][j] < 0.0L) {
+
+                if (map_y[i + 1][j] * map_y[i + 1][j + 1] < 0.0L) {
+
+                    phi2a = phi + map_parameter * fabsl(map_y[i][j])
+                                  / (fabsl(map_y[i][j]) + fabsl(map_y[i + 1][j]));
+                    theta2a = theta;
+
+                    phi2b = phi + map_parameter;
+                    theta2b = theta + map_parameter * fabsl(map_y[i + 1][j])
+                                      / (fabsl(map_y[i + 1][j]) + fabsl(map_y[i + 1][j + 1]));
+
+                    z_y = 1;
+
+                } else if (map_y[i][j + 1] * map_y[i + 1][j + 1] < 0.0L) {
+
+                    phi2a = phi + map_parameter * fabsl(map_y[i][j])
+                                  / (fabsl(map_y[i][j]) + fabsl(map_y[i + 1][j]));
+                    theta2a = theta;
+
+                    phi2b = phi + map_parameter * fabsl(map_y[i][j + 1])
+                                  / (fabsl(map_y[i][j + 1]) + fabsl(map_y[i + 1][j + 1]));
+                    theta2b = theta + map_parameter;
+
+                    z_y = 1;
+                }
+            } else if (map_y[i + 1][j] * map_y[i + 1][j + 1] < 0.0L) {
+
+                if (map_y[i][j + 1] * map_y[i + 1][j + 1] < 0.0L) {
+
+                    phi2a = phi + map_parameter;
+                    theta2a = theta + map_parameter * fabsl(map_y[i + 1][j])
+                                      / (fabsl(map_y[i + 1][j]) + fabsl(map_y[i + 1][j + 1]));
+
+                    phi2b = phi + map_parameter * fabsl(map_y[i][j + 1])
+                                  / (fabsl(map_y[i][j + 1]) + fabsl(map_y[i + 1][j + 1]));
+                    theta2b = theta + map_parameter;
+
+                    z_y = 1;
+                }
+            }
+
+            if (z_x == 1 and z_y == 1 and whitelist[i][j] != 1) {
+
+                flag = 0;
+                phi_answer = 0.0L;
+                theta_answer = 0.0L;
+
+                cross(phi_answer, theta_answer, phi1a, theta1a, phi1b, theta1b, phi2a, theta2a, phi2b, theta2b);
+
+                if ((phi <= phi_answer) and (phi_answer <= phi + map_parameter) and (theta <= theta_answer)
+                    and (theta_answer <= theta + map_parameter)) {
+                    flag = 1;
+                } else if ((phi <= phi_answer) and (phi_answer <= phi + map_parameter)
+                           and (theta <= - theta_answer + PI) and (- theta_answer + PI <= theta + map_parameter)) {
+                    theta_answer = - theta_answer + PI;
+                    flag = 1;
+                } else if ((phi <= phi_answer + PI) and (phi_answer + PI <= phi + map_parameter)
+                           and (theta <= - theta_answer + PI) and (- theta_answer + PI <= theta + map_parameter)) {
+                    phi_answer = phi_answer + PI;
+                    theta_answer = - theta_answer + PI;
+                    flag = 1;
+                } else if ((phi <= phi_answer + PI) and (phi_answer + PI <= phi + map_parameter)
+                           and (theta <= theta_answer) and (theta_answer <= theta + map_parameter)) {
+                    phi_answer = phi_answer + PI;
+                    flag = 1;
+                } else if ((phi <= phi_answer + 2 * PI) and (phi_answer + 2 * PI <= phi + map_parameter)
+                           and (theta <= - theta_answer + PI) and (- theta_answer + PI <= theta + map_parameter)) {
+                    phi_answer = phi_answer + 2 * PI;
+                    theta_answer = - theta_answer + PI;
+                    flag = 1;
+                } else if ((phi <= phi_answer + 2 * PI) and (phi_answer + 2 * PI <= phi + map_parameter)
+                           and (theta <= theta_answer) and (theta_answer <= theta + map_parameter)) {
+                    phi_answer = phi_answer + 2 * PI;
+                    flag = 1;
+                }
+
+                if (flag == 1) {
+
+                    q_answer = fft_point_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    u_answer = fft_point_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    q_x_answer = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    q_y_answer = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    u_x_answer = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    u_y_answer = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    q_xx_answer = fft_point_xx_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    q_yy_answer = fft_point_yy_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    q_xy_answer = fft_point_xy_forward(phi_answer, theta_answer, q_cos_ml,  q_sin_ml, n);
+                    u_xx_answer = fft_point_xx_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    u_yy_answer = fft_point_yy_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    u_xy_answer = fft_point_xy_forward(phi_answer, theta_answer, u_cos_ml,  u_sin_ml, n);
+                    p_answer = sqrtl(q_answer * q_answer + u_answer * u_answer);
+
+                    fxx = (q_x_answer * q_x_answer + u_x_answer * u_x_answer + q_answer * q_xx_answer + u_answer * u_xx_answer);
+                    fyy = (q_y_answer * q_y_answer + u_y_answer * u_y_answer + q_answer * q_yy_answer + u_answer * u_yy_answer);
+                    fxy = (q_y_answer * q_x_answer + u_y_answer * u_x_answer + q_answer * q_xy_answer + u_answer * u_xy_answer);
+
+                    condition_answer = condition_1(fxx, fyy, fxy);
+
+                    out_file << std::scientific << phi_answer << " "
+                             << std::scientific << theta_answer << " "
+                             << std::scientific << p_answer / sigma_p << " "
+                             << condition_answer << std::endl;
+                }
+            }
+        }
+    }
+
+    out_file.close();
+}
+
 void level_points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                        long double level, std::string name) {
 
@@ -1615,7 +1903,8 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
 
 void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
-                                long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist) {
+                                long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist,
+                                unsigned int n) {
     std::ofstream out_file;
     out_file.open(name);
     typedef std::numeric_limits<long double> dbl;
@@ -1855,10 +2144,10 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
                 if (flag == 1) {
 
-                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
-                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
-                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
-                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, n);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, n);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, n);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, n);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 

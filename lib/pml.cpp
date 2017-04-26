@@ -545,7 +545,7 @@ void pml_xy_gen(unsigned int j, long double** array) {
         long_l = static_cast<long double>(l);
         for (unsigned int m = 0; m <= l; ++m) {
             long_m = static_cast<long double>(m);
-            array[m][l] = long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
+            array[m][l] = - long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
                                                   (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
         }
     }
@@ -565,7 +565,7 @@ void pml_xy_gen(long double theta, long double** array) {
         long_l = static_cast<long double>(l);
         for (unsigned int m = 0; m <= l; ++m) {
             long_m = static_cast<long double>(m);
-            array[m][l] = long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
+            array[m][l] = - long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
                                                   (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
         }
     }
@@ -587,7 +587,7 @@ void pml_xy_gen(unsigned int j, long double** array, unsigned int n) {
         long_l = static_cast<long double>(l);
         for (unsigned int m = 0; m <= l; ++m) {
             long_m = static_cast<long double>(m);
-            array[m][l] = long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
+            array[m][l] = - long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
                                                   (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
         }
     }
@@ -607,7 +607,7 @@ void pml_xy_gen(long double theta, long double** array, unsigned int n) {
         long_l = static_cast<long double>(l);
         for (unsigned int m = 0; m <= l; ++m) {
             long_m = static_cast<long double>(m);
-            array[m][l] = long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
+            array[m][l] = - long_m / sinl(theta) * ((1.0L / sinl(theta)) * (l + m) * pml[m][l - 1] * coef1(l, m) -
                                                   (long_l - 1.0L) * cosl(theta) / sinl(theta) * pml[m][l]);
         }
     }
