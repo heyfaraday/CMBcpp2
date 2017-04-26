@@ -58,6 +58,7 @@ void fft_map_forward(long double** map, long double** cos_ml, long double** sin_
         in[0][0] = 0.0L;
         in[0][1] = 0.0L;
 
+        // бесполезно вообще то
         for (unsigned int l = 0; l < nmod; ++l) {
             in[0][0] = in[0][0] + sin_ml[0][l] * pml[0][l];
         }
@@ -450,6 +451,7 @@ void fft_map_x_forward(long double** map, long double** cos_ml, long double** si
     fftwl_free(in);
     fftwl_free(out);
 }
+
 void fft_map_x_forward(long double** map, long double** cos_ml, long double** sin_ml, unsigned int n)
 {
     fftwl_complex* in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*in) * npix));
@@ -493,9 +495,9 @@ void fft_map_x_forward(long double** map, long double** cos_ml, long double** si
         fftwl_execute(p);
 
         for (unsigned int i = 0; i < npix; ++i) {
-            map[i][j] = - out[i][1];
+            map[i][j] = out[i][1];
         }
-        map[npix][j] = - out[0][1];
+        map[npix][j] = out[0][1];
 
         in[0][0] = 0.0L;
         in[0][1] = 0.0L;
@@ -515,9 +517,9 @@ void fft_map_x_forward(long double** map, long double** cos_ml, long double** si
         fftwl_execute(p);
 
         for (unsigned int i = 0; i < npix; ++i) {
-            map[i][j] = map[i][j] + out[i][0];
+            map[i][j] = map[i][j] - out[i][0];
         }
-        map[npix][j] = map[npix][j] + out[0][0];
+        map[npix][j] = map[npix][j] - out[0][0];
     }
 
     n_matrix_destroyer(pml, n);
@@ -526,7 +528,6 @@ void fft_map_x_forward(long double** map, long double** cos_ml, long double** si
     fftwl_free(in);
     fftwl_free(out);
 }
-
 
 long double fft_point_x_forward(long double phi, long double theta, long double** cos_ml, long double** sin_ml) {
 
@@ -661,6 +662,7 @@ void fft_map_y_forward(long double** map, long double** cos_ml, long double** si
     fftwl_free(in);
     fftwl_free(out);
 }
+
 void fft_map_y_forward(long double** map, long double** cos_ml, long double** sin_ml, unsigned int n)
 {
     fftwl_complex* in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*in) * npix));
@@ -737,8 +739,6 @@ void fft_map_y_forward(long double** map, long double** cos_ml, long double** si
     fftwl_free(in);
     fftwl_free(out);
 }
-
-
 
 long double fft_point_y_forward(long double phi, long double theta, long double** cos_ml, long double** sin_ml) {
 
@@ -873,6 +873,7 @@ void fft_map_xx_forward(long double** map, long double** cos_ml, long double** s
     fftwl_free(in);
     fftwl_free(out);
 }
+
 void fft_map_xx_forward(long double** map, long double** cos_ml, long double** sin_ml, unsigned int n)
 {
     fftwl_complex* in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*in) * npix));
@@ -949,7 +950,6 @@ void fft_map_xx_forward(long double** map, long double** cos_ml, long double** s
     fftwl_free(in);
     fftwl_free(out);
 }
-
 
 
 long double fft_point_xx_forward(long double phi, long double theta, long double** cos_ml, long double** sin_ml) {
@@ -1084,6 +1084,7 @@ void fft_map_yy_forward(long double** map, long double** cos_ml, long double** s
     fftwl_free(in);
     fftwl_free(out);
 }
+
 void fft_map_yy_forward(long double** map, long double** cos_ml, long double** sin_ml, unsigned int n)
 {
     fftwl_complex* in = static_cast<fftwl_complex*>(fftwl_malloc(sizeof(*in) * npix));

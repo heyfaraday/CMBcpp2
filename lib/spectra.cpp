@@ -23,7 +23,9 @@ long double sigma_0_map(long double** map) {
             }
         }
     }
-    return sum_without_norm / norm;
+
+    // хуй его знает
+    return sqrtl(sum_without_norm / norm);
 }
 
 long double sigma_0_cl(long double* cl) {
@@ -63,12 +65,12 @@ long double sigma_0_aml(long double** cos_ml, long double** sin_ml) {
 
     long double sum = 0.0L;
 
-    for (unsigned int l = 0; l < nmod; ++l) {
-        for (unsigned int m = 0; m < nmod; ++m) {
-            sum = sum + cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l];
+    for (unsigned int l = 1; l < nmod; ++l) {
+        for (unsigned int m = 1; m < nmod; ++m) {
+            sum = sum + (cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l]) * 2.0;
         }
+        sum = sum + (cos_ml[0][l] * cos_ml[0][l] + sin_ml[0][l] * sin_ml[0][l]);
     }
-
     return sqrtl(sum / 4.0L / PI);
 }
 
