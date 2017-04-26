@@ -1,9 +1,9 @@
-npix        512
-nmod        40
-nback       40
+npix        1024
+nmod        512
+nback       512
 nmonte      5
 nring       10
 hring       10
-lower_level     -1.0
-top_level       1.0
-nlevel      20
+lower_level     -0.0005
+top_level       0.0005
+nlevel      80

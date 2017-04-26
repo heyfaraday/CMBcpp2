@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <random>
 
 #include "utils.hpp"
 #include "parameters.hpp"
@@ -34,40 +35,40 @@ int main() {
     i_aml("alm_T0B_T_cos.dat", cos_ml);
     i_aml("alm_T0B_T_sin.dat", sin_ml);
 
-    aml_to_cl(cos_ml, sin_ml, cl);
+//    aml_to_cl(cos_ml, sin_ml, cl);
 
 //    o_cl("my_cl.dat", cl);
 
 //    healpix_transform(cos_ml);
 //    healpix_transform(sin_ml);
 
-
-    add_dipole(cos_ml, sin_ml, 1.0L, 2.0L, 3.0L);
-    cos_ml[0][2] = 12.0L;
-    cos_ml[1][2] = 12.4L;
-    cos_ml[2][2] = -5.0L;
-    sin_ml[1][2] = 3.0L;
-    sin_ml[2][2] = 0.5L;
-
-    std::cout << "map_start" << std::endl;
+//
+//    add_dipole(cos_ml, sin_ml, 1.0L, 2.0L, 3.0L);
+//    cos_ml[0][2] = 12.0L;
+//    cos_ml[1][2] = 12.4L;
+//    cos_ml[2][2] = -5.0L;
+//    sin_ml[1][2] = 3.0L;
+//    sin_ml[2][2] = 0.5L;
+//
+//    std::cout << "map_start" << std::endl;
     fft_map_forward(map, cos_ml, sin_ml);
-    std::cout << "map_end" << std::endl;
-
-//    for (int m = 0; m < 3; ++m) {
-//        for (int l = 0; l < 3; ++l) {
-//            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
-//        }
-//    }
+//    std::cout << "map_end" << std::endl;
 //
-//    fft_map_backward(map, cos_ml, sin_ml);
-//
-//    for (int m = 0; m < 3; ++m) {
-//        for (int l = 0; l < 3; ++l) {
-//            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
-//        }
-//    }
+////    for (int m = 0; m < 3; ++m) {
+////        for (int l = 0; l < 3; ++l) {
+////            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
+////        }
+////    }
+////
+////    fft_map_backward(map, cos_ml, sin_ml);
+////
+////    for (int m = 0; m < 3; ++m) {
+////        for (int l = 0; l < 3; ++l) {
+////            std::cout << "m: " << m << " l: " << l << " " << cos_ml[m][l] << " " << sin_ml[m][l] << std::endl;
+////        }
+////    }
 
-    o_map("map_dohua.dat", map);
+    o_map("map.dat", map);
 
     n_matrix_destroyer(cos_ml, nmod);
     n_matrix_destroyer(sin_ml, nmod);

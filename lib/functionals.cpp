@@ -309,7 +309,7 @@ int condition_2(long double qx, long double qy, long double ux, long double uy) 
     }
 }
 
-void points_classifier(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+void points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                        std::string name) {
 
     std::ofstream out_file;
@@ -550,9 +550,9 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
 
                 if (flag == 1) {
 
-                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
+                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
 
                     condition_answer = condition_1(fxx, fyy, fxy);
 
@@ -567,7 +567,7 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
     out_file.close();
 }
 
-void level_points_classifier(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+void level_points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                        long double level, std::string name) {
 
     std::ofstream out_file;
@@ -809,11 +809,11 @@ void level_points_classifier(long double** map_x, long double** map_y, long doub
 
                 if (flag == 1) {
 
-                    f = fft_point_forward(phi_answer, theta_answer, cos_lm, sin_lm);
+                    f = fft_point_forward(phi_answer, theta_answer, cos_ml, sin_ml);
 
-                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
+                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
 
                     condition_answer = condition_1(fxx, fyy, fxy);
 
@@ -831,7 +831,7 @@ void level_points_classifier(long double** map_x, long double** map_y, long doub
     out_file.close();
 }
 
-void points_classifier(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+void points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                        std::string name, unsigned int l_1, unsigned int l_2) {
 
     if (l_1 < 1 or l_1 > npix / 2 - 2 or l_2 < 1 or l_2 > npix / 2 - 2 or l_1 >= l_2) {
@@ -1077,9 +1077,9 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
 
                 if (flag == 1) {
 
-                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
-                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_lm, sin_lm);
+                    fxx = fft_point_xx_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fyy = fft_point_yy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
+                    fxy = fft_point_xy_forward(phi_answer, theta_answer, cos_ml, sin_ml);
 
                     condition_answer = condition_1(fxx, fyy, fxy);
 
@@ -1096,8 +1096,8 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
     out_file.close();
 }
 
-void singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
-                                long double** u_cos_lm, long double** u_sin_lm, std::string name) {
+void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
+                                long double** u_cos_ml, long double** u_sin_ml, std::string name) {
     std::ofstream out_file;
     out_file.open(name);
     typedef std::numeric_limits<long double> dbl;
@@ -1337,10 +1337,10 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
                 if (flag == 1) {
 
-                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
-                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 
@@ -1355,8 +1355,8 @@ void singular_points_classifier(long double** q, long double** u, long double** 
     out_file.close();
 }
 
-void level_singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
-                                long double** u_cos_lm, long double** u_sin_lm, long double level, std::string name) {
+void level_singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
+                                long double** u_cos_ml, long double** u_sin_ml, long double level, std::string name) {
     std::ofstream out_file;
     out_file.open(name, std::ios::app);
     typedef std::numeric_limits<long double> dbl;
@@ -1598,13 +1598,13 @@ void level_singular_points_classifier(long double** q, long double** u, long dou
 
                 if (flag == 1) {
 
-                    q_pr = fft_point_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm);
-                    u_pr = fft_point_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm);
+                    q_pr = fft_point_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml);
+                    u_pr = fft_point_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml);
 
-                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
-                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 
@@ -1622,8 +1622,8 @@ void level_singular_points_classifier(long double** q, long double** u, long dou
     out_file.close();
 }
 
-void singular_points_classifier(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
-                                long double** u_cos_lm, long double** u_sin_lm, std::string name,
+void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
+                                long double** u_cos_ml, long double** u_sin_ml, std::string name,
                                 unsigned int l_1, unsigned int l_2) {
 
     if (l_1 < 1 or l_1 > npix / 2 - 2 or l_2 < 1 or l_2 > npix / 2 - 2 or l_1 >= l_2) {
@@ -1870,10 +1870,10 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 
                 if (flag == 1) {
 
-                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_lm, q_sin_lm, nback);
-                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
-                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_lm, u_sin_lm, nback);
+                    qx = fft_point_x_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    qy = fft_point_y_forward(phi_answer, theta_answer, q_cos_ml, q_sin_ml, nback);
+                    ux = fft_point_x_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
+                    uy = fft_point_y_forward(phi_answer, theta_answer, u_cos_ml, u_sin_ml, nback);
 
                     condition_answer = condition_2(qx, qy, ux, uy);
 

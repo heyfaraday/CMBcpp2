@@ -4,9 +4,9 @@ from math import pi
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-map_from_file = genfromtxt('../bin/map_dohua.dat')
+map_from_file = genfromtxt('../bin/map.dat')
 
-N = 512
+N = 1024
 projection = 'moll'  # 'cyl', 'moll', 'ortho'
 save_as_png = False
 save_as_svg = False

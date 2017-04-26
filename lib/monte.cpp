@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <ios>
 
 #include "functionals.hpp"
 #include "parameters.hpp"
@@ -91,7 +92,7 @@ void circles_length(long double** map, long double level, std::string name) {
     out_file.close();
 }
 
-void circles_points(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+void circles_points(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                     std::string name) {
 
     long double theta;
@@ -106,10 +107,10 @@ void circles_points(long double** map_x, long double** map_y, long double** cos_
             exit (EXIT_FAILURE);
         }
 
-        points_classifier(map_x, map_y, cos_lm, sin_lm, name, npix / 4 + j_center, npix / 4 + j_center +
+        points_classifier(map_x, map_y, cos_ml, sin_ml, name, npix / 4 + j_center, npix / 4 + j_center +
                 static_cast<unsigned int>(hring * sinl(theta)) - 1);
 
-        points_classifier(map_x, map_y, cos_lm, sin_lm, name, npix / 4 -
+        points_classifier(map_x, map_y, cos_ml, sin_ml, name, npix / 4 -
                 j_center - static_cast<unsigned int>(hring * sinl(theta)), npix / 4 - j_center - 1);
 
         j_center = j_center + static_cast<unsigned int>(hring * sinl(theta));
@@ -117,8 +118,8 @@ void circles_points(long double** map_x, long double** map_y, long double** cos_
     }
 }
 
-void circles_singular_points(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
-                             long double** u_cos_lm, long double** u_sin_lm, std::string name) {
+void circles_singular_points(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
+                             long double** u_cos_ml, long double** u_sin_ml, std::string name) {
 
     long double theta;
     unsigned int j_center = 0;
@@ -132,10 +133,10 @@ void circles_singular_points(long double** q, long double** u, long double** q_c
             exit (EXIT_FAILURE);
         }
 
-        singular_points_classifier(q, u, q_cos_lm, q_sin_lm, u_cos_lm, u_sin_lm, name,
+        singular_points_classifier(q, u, q_cos_ml, q_sin_ml, u_cos_ml, u_sin_ml, name,
                           npix / 4 + j_center, npix / 4 + j_center + static_cast<unsigned int>(hring * sinl(theta)) - 1);
 
-        singular_points_classifier(q, u, q_cos_lm, q_sin_lm, u_cos_lm, u_sin_lm, name,
+        singular_points_classifier(q, u, q_cos_ml, q_sin_ml, u_cos_ml, u_sin_ml, name,
                           npix / 4 - j_center - static_cast<unsigned int>(hring * sinl(theta)), npix / 4 - j_center - 1);
 
         j_center = j_center + static_cast<unsigned int>(hring * sinl(theta));
@@ -146,7 +147,7 @@ void circles_singular_points(long double** q, long double** u, long double** q_c
 void level_area(long double** map, std::string name) {
 
     std::ofstream out_file;
-    out_file.open(name);
+    out_file.open(name, std::ios::app);
 
     typedef std::numeric_limits<long double> dbl;
 
@@ -170,7 +171,7 @@ void level_area(long double** map, std::string name) {
 void level_length(long double** map, std::string name) {
 
     std::ofstream out_file;
-    out_file.open(name);
+    out_file.open(name, std::ios::app);
 
     typedef std::numeric_limits<long double> dbl;
 
@@ -191,27 +192,27 @@ void level_length(long double** map, std::string name) {
     out_file.close();
 }
 
-void level_points(long double** map_x, long double** map_y, long double** cos_lm, long double** sin_lm,
+void level_points(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                   std::string name) {
 
     long double current_level = lower_level;
 
     for (unsigned int i_level = 0; i_level <= nlevel; ++i_level) {
 
-        level_points_classifier(map_x, map_y, cos_lm, sin_lm, current_level, name);
+        level_points_classifier(map_x, map_y, cos_ml, sin_ml, current_level, name);
 
         current_level = current_level + (top_level - lower_level) / nlevel;
 
     }
 }
 
-void level_singular_points(long double** q, long double** u, long double** q_cos_lm, long double** q_sin_lm,
-                           long double** u_cos_lm, long double** u_sin_lm, std::string name) {
+void level_singular_points(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
+                           long double** u_cos_ml, long double** u_sin_ml, std::string name) {
     long double current_level = lower_level;
 
     for (unsigned int i_level = 0; i_level <= nlevel; ++i_level) {
 
-        level_singular_points_classifier(q, u, q_cos_lm, q_sin_lm, u_cos_lm, u_sin_lm, current_level, name);
+        level_singular_points_classifier(q, u, q_cos_ml, q_sin_ml, u_cos_ml, u_sin_ml, current_level, name);
 
         current_level = current_level + (top_level - lower_level) / nlevel;
 

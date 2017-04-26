@@ -1,8 +1,10 @@
 #pragma once
 
-void aml_gasdev(long double** cos_ml, long double** sin_ml, long double mean, long double std);
+void aml_gasdev(std::default_random_engine generator,
+                long double** cos_ml, long double** sin_ml, long double mean, long double std);
 
-void aml_from_cl(long double** cos_ml, long double** sin_ml, long double* cl);
+void aml_from_cl(std::default_random_engine generator,
+                 long double** cos_ml, long double** sin_ml, long double* cl);
 
 void healpix_transform(long double** aml);
 
