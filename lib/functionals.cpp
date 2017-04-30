@@ -2230,6 +2230,7 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 //                    out_file << std::scientific << phi_answer << " "
 //                             << std::scientific << theta_answer << " "
 //                             << condition_answer << std::endl;
+
                     whitelist[i][j] = 1;
                 }
             }

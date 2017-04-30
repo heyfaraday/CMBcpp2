@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 map_from_file = genfromtxt('../bin/map_test.dat')
-points_from_file = genfromtxt('../bin/hfi_sing.dat').T
+points_from_file = genfromtxt('../bin/hfi_points.dat').T
 
 N = 1024
 projection = 'cyl'
@@ -36,27 +36,27 @@ ax.axis('off')
 cmbmap = Basemap(projection=projection, lon_0=0, resolution='l')
 cmbmap.contourf(x * rad, y * rad, inside_map, 512, cmap=plt.cm.jet, latlon=True)
 
-# marker = ''
-#
-# for i in range(0, size(points_from_file[0])):
-#     if points_from_file[3][i] == 0:
-#         marker = '.'
-#     elif points_from_file[3][i] == 1:
-#         marker = 'x'
-#     elif points_from_file[3][i] == 2:
-#         marker = '+'
-#     cmbmap.scatter((points_from_file[0][i] - pi) * rad, (points_from_file[1][i] - pi / 2.0) * rad, marker=marker)
-#
 marker = ''
 
 for i in range(0, size(points_from_file[0])):
-    if points_from_file[2][i] == 1:
+    if points_from_file[3][i] == 0:
         marker = '.'
-    elif points_from_file[2][i] == 2:
+    elif points_from_file[3][i] == 1:
         marker = 'x'
-    elif points_from_file[2][i] == 3:
+    elif points_from_file[3][i] == 2:
         marker = '+'
     cmbmap.scatter((points_from_file[0][i] - pi) * rad, (points_from_file[1][i] - pi / 2.0) * rad, marker=marker)
+#
+# marker = ''
+#
+# for i in range(0, size(points_from_file[0])):
+#     if points_from_file[2][i] == 1:
+#         marker = '.'
+#     elif points_from_file[2][i] == 2:
+#         marker = 'x'
+#     elif points_from_file[2][i] == 3:
+#         marker = '+'
+#     cmbmap.scatter((points_from_file[0][i] - pi) * rad, (points_from_file[1][i] - pi / 2.0) * rad, marker=marker)
 
 # cmb_map = Basemap(projection=projection, lon_0=0.0, lat_0=0.0, resolution='l')
 # cmb_map.contourf(x * rad, y * rad, inside_map, 1024, cmap=plt.cm.jet, latlon=True)
