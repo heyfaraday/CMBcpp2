@@ -30,3 +30,4 @@ void cross(long double& phi_out, long double& theta_out,
     phi_out = atanl(a[1] / a[0]);
     theta_out = acosl(- a[2] / mod);
 }
+

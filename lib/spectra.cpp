@@ -67,7 +67,7 @@ long double sigma_0_aml(long double** cos_ml, long double** sin_ml) {
 
     for (unsigned int l = 1; l < nmod; ++l) {
         for (unsigned int m = 1; m < nmod; ++m) {
-            sum = sum + (cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l]) * 2.0;
+            sum = sum + (cos_ml[m][l] * cos_ml[m][l] + sin_ml[m][l] * sin_ml[m][l]) * 2.0L;
         }
         sum = sum + (cos_ml[0][l] * cos_ml[0][l] + sin_ml[0][l] * sin_ml[0][l]);
     }

@@ -2,6 +2,8 @@
 #include <complex>
 #include <iostream>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "io.hpp"
 
@@ -9,21 +11,19 @@
 
 void o_map(std::string name, long double** map) {
 
-    std::ofstream out_file;
-    out_file.open(name);
+//    std::ofstream out_file;
+//    out_file.open(name);
+//    typedef std::numeric_limits<long double> dbl;
+//    out_file.precision(dbl::max_digits10);
 
-    typedef std::numeric_limits<long double> dbl;
-
-    out_file.precision(dbl::max_digits10);
+    FILE* fp = fopen(name.c_str(), "w");
 
     for (unsigned int i = 0; i <= npix; ++i) {
         for (unsigned int j = 0; j <= npix / 2; ++j) {
-            out_file << i << "  " << j << "  "
-                 << std::scientific << map[i][j] << std::endl;
+            fprintf(fp, "%u %u %.21Le \n", i, j, map[i][j]);
         }
     }
-
-    out_file.close();
+    fclose(fp);
 }
 
 void i_map(std::string name, long double** map) {
@@ -72,20 +72,20 @@ void i_aml(std::string name, long double** aml) {
     unsigned int l;
     long double aml_;
 
-    std::ifstream in_file;
-    in_file.open(name);
+//    std::ifstream in_file;
+//    in_file.open(name);
+//    std::string line;
 
-    std::string line;
+    FILE* fp = fopen(name.c_str(), "r");
 
-    while(std::getline(in_file, line)) {
-        std::stringstream stream(line);
-        stream >> m;
-        stream >> l;
-        stream >> aml_;
+    while(!feof(fp)) {
+        fscanf(fp,"%u %u %Lf \n", &m, &l, &aml_);
         if (m < nmod and l < nmod) {
             aml[m][l] = aml_;
         }
     }
+
+    fclose(fp);
 }
 
 void o_cl(std::string name, long double* cl) {

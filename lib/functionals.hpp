@@ -27,12 +27,12 @@ void level_points_classifier(long double** map_x, long double** map_y, long doub
 void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
                                 long double** u_cos_ml, long double** u_sin_ml, std::string name);
 
-void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
-                                long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist,
+void singular_points_classifier(long double** q, long double** u, long double** qx, long double** ux,
+                                long double** qy, long double** uy, std::string name, long double** whitelist,
                                 unsigned int n);
 
-void points_classifier_p(long double** map_x, long double** map_y, long double** q_cos_ml, long double** q_sin_ml,
-                         long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist,
+void points_classifier_p(long double** map, long double** map_x, long double** map_y, long double** map_xx,
+                         long double** map_yy, long double** map_xy, std::string name, long double** whitelist,
                          unsigned int n, long double sigma_p);
 
 void level_singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,

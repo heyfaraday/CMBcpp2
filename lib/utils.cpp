@@ -64,8 +64,8 @@ void d_solver(long double& root1, long double& root2,
         root1 = (-b + sqrtl(determinant)) / (2.0L * a);
         root2 = (-b - sqrtl(determinant)) / (2.0L * a);
     } else {
-        root1 = -1.0L;
-        root2 = 1.0L;
+        root1 = 0;
+        root2 = 0;
     }
 }
 
