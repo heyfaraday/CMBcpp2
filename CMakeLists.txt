@@ -27,6 +27,8 @@ set(SOURCE_FILES_print_f_test src/print_f_test.cpp)
 set(SOURCE_FILES_v_0_9_ src/v_0_9_.cpp)
 set(SOURCE_FILES_v_1_3_ src/v_1_3_.cpp)
 
+set(SOURCE_FILES_lib2_test_0_1_ src/lib2_test_0_1_.cpp)
+
 #add_executable(main ${SOURCE_FILES_main})
 #add_executable(v_0_0_ ${SOURCE_FILES_v_0_0_})
 #add_executable(v_0_1_ ${SOURCE_FILES_v_0_1_})
@@ -44,8 +46,13 @@ add_executable(print_f_test ${SOURCE_FILES_print_f_test})
 add_executable(v_0_9_ ${SOURCE_FILES_v_0_9_})
 add_executable(v_1_3_ ${SOURCE_FILES_v_1_3_})
 
+add_executable(lib2_test_0_1_ ${SOURCE_FILES_lib2_test_0_1_})
+
 include_directories(lib)
 add_subdirectory(lib)
+
+include_directories(lib2)
+add_subdirectory(lib2)
 
 #target_link_libraries(main lib)
 #target_link_libraries(v_0_0_ lib)
@@ -62,5 +69,7 @@ target_link_libraries(v_1_1_ lib)
 target_link_libraries(v_1_2_ lib)
 target_link_libraries(v_0_9_ lib)
 target_link_libraries(v_1_3_ lib)
+
+target_link_libraries(lib2_test_0_1_ lib2)
 
 include_directories(bin)

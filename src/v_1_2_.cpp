@@ -14,6 +14,8 @@ int main() {
     typedef std::numeric_limits<long double> dbl;
     std::cout.precision(dbl::max_digits10);
 
+    std::cout << "1" << std::endl;
+
     long double** u = n_matrix_generator(npix + 1, npix / 2 + 1);
     long double** q = n_matrix_generator(npix + 1, npix / 2 + 1);
     long double** u_x = n_matrix_generator(npix + 1, npix / 2 + 1);
@@ -40,24 +42,41 @@ int main() {
 
     long double** whitelist = n_matrix_generator(npix + 1, npix / 2 + 1);
 
-    std::default_random_engine generator;
-    generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
-    aml_gasdev(generator, cos_ml_q, sin_ml_q, 0.0l, 1.0l);
-    generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
-    aml_gasdev(generator, cos_ml_u, sin_ml_u, 0.0l, 1.0l);
+//    std::default_random_engine generator;
+//    generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+//    aml_gasdev(generator, cos_ml_q, sin_ml_q, 0.0l, 1.0l);
+//    generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+//    aml_gasdev(generator, cos_ml_u, sin_ml_u, 0.0l, 1.0l);
+
+    std::cout << "2" << std::endl;
+
+    i_aml("q_cos_hfi.dat", cos_ml_q);
+    i_aml("q_sin_hfi.dat", sin_ml_q);
+    i_aml("u_cos_hfi.dat", cos_ml_u);
+    i_aml("u_sin_hfi.dat", sin_ml_u);
+
+    std::cout << "3" << std::endl;
 
     fft_map_forward(q, cos_ml_q, sin_ml_q);
     fft_map_forward(u, cos_ml_u, sin_ml_u);
+
+    std::cout << "4" << std::endl;
+
     fft_map_x_forward(q_x, cos_ml_q, sin_ml_q);
     fft_map_x_forward(u_x, cos_ml_u, sin_ml_u);
     fft_map_y_forward(q_y, cos_ml_q, sin_ml_q);
     fft_map_y_forward(u_y, cos_ml_u, sin_ml_u);
+
+    std::cout << "5" << std::endl;
+
     fft_map_xx_forward(q_xx, cos_ml_q, sin_ml_q);
     fft_map_xx_forward(u_xx, cos_ml_u, sin_ml_u);
     fft_map_yy_forward(q_yy, cos_ml_q, sin_ml_q);
     fft_map_yy_forward(u_yy, cos_ml_u, sin_ml_u);
     fft_map_xy_forward(q_xy, cos_ml_q, sin_ml_q);
     fft_map_xy_forward(u_xy, cos_ml_u, sin_ml_u);
+
+    std::cout << "6" << std::endl;
 
     for (int i = 0; i < npix + 1; ++i) {
         for (int j = 0; j < npix / 2 + 1; ++j) {
@@ -70,11 +89,17 @@ int main() {
         }
     }
 
+    std::cout << "7" << std::endl;
+
     long double sigma = sigma_0_map(p);
 
     singular_points_classifier(q, u, q_x, u_x, q_y, u_y, "hfi_sing.dat", whitelist, nmod);
 
+    std::cout << "8" << std::endl;
+
     points_classifier_p(p, p_x, p_y, p_xx, p_yy, p_xy, "hfi_points.dat", whitelist, nmod, sigma);
+
+    std::cout << "9" << std::endl;
 
     o_map("map_test.dat", p);
 

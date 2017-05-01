@@ -1,6 +1,6 @@
-npix        1024
-nmod        30
-nback       30
+npix        4096
+nmod        2048
+nback       2048
 nmonte      5
 nring       10
 hring       10
