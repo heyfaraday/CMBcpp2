@@ -574,7 +574,7 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
 }
 
 void points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
-                       std::string name, long double** whitelist) {
+                       std::string name, int** whitelist) {
 
     std::ofstream out_file;
     out_file.open(name);
@@ -1133,12 +1133,13 @@ void points_classifier_p(long double** map, long double** map_x, long double** m
 //                                   + (map_xy[i + 1][j + 1] - map_xy[i + 1][j]) * (phi_answer + map_parameter - phi) / map_parameter)
 //                                  * s2(phi_answer, phi_answer, theta, theta_answer) / s2(phi_answer, phi_answer, theta, theta + map_parameter);
 
-                    p_answer = map[i][j] + ((map[i + 1][j] - map[i][j]) * ((theta_answer - theta) / map_parameter)
-                                      + (map[i + 1][j + 1] - map[i][j + 1]) * ((theta + map_parameter - theta_answer) / map_parameter)) *
-                                     s2(phi, phi_answer, theta_answer, theta_answer) / s2(phi, phi + map_parameter, theta_answer, theta_answer)
-                          + ((map[i][j + 1] - map[i][j]) * ((phi_answer - phi) / map_parameter)
-                             + (map[i + 1][j + 1] - map[i + 1][j]) * (phi_answer + map_parameter - phi) / map_parameter)
-                            * s2(phi_answer, phi_answer, theta, theta_answer) / s2(phi_answer, phi_answer, theta, theta + map_parameter);
+                    p_answer = map[i][j];
+//                               + ((map[i + 1][j] - map[i][j]) * ((theta_answer - theta) / map_parameter)
+//                                      + (map[i + 1][j + 1] - map[i][j + 1]) * ((theta + map_parameter - theta_answer) / map_parameter)) *
+//                                     s2(phi, phi_answer, theta_answer, theta_answer) / s2(phi, phi + map_parameter, theta_answer, theta_answer)
+//                          + ((map[i][j + 1] - map[i][j]) * ((phi_answer - phi) / map_parameter)
+//                             + (map[i + 1][j + 1] - map[i + 1][j]) * (phi_answer + map_parameter - phi) / map_parameter)
+//                            * s2(phi_answer, phi_answer, theta, theta_answer) / s2(phi_answer, phi_answer, theta, theta + map_parameter);
 
                     condition_answer = condition_1(fxx, fyy, fxy);
 
@@ -1945,6 +1946,8 @@ void singular_points_classifier(long double** q, long double** u, long double** 
 //void singular_points_classifier(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
 //                                long double** u_cos_ml, long double** u_sin_ml, std::string name, long double** whitelist,
 //                                unsigned int n) {
+//
+//}
 void singular_points_classifier(long double** q, long double** u, long double** qx, long double** ux,
                                 long double** qy, long double** uy, std::string name, long double** whitelist,
                                 unsigned int n) {

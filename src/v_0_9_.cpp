@@ -13,10 +13,10 @@ int main() {
     long double** cos_ml = n_matrix_generator(nmod, nmod);
     long double** sin_ml = n_matrix_generator(nmod, nmod);
 
-    sin_ml[1][1] = 1.0;
-    cos_ml[0][1] = 1.0;
-    cos_ml[0][0] = 1.0;
-    sin_ml[1][1] = 1.0;
+    sin_ml[1][1] = 1.0l;
+    cos_ml[0][1] = 1.0l;
+    cos_ml[0][0] = 1.0l;
+    sin_ml[1][1] = 1.0l;
 
     fft_map_forward(map, cos_ml, sin_ml);
 

@@ -1,5 +1,5 @@
 #include <cmath>
-
+#include <iostream>
 #include "spectra.hpp"
 
 #include "parameters.hpp"
@@ -23,8 +23,6 @@ long double sigma_0_map(long double** map) {
             }
         }
     }
-
-    // хуй его знает
     return sqrtl(sum_without_norm / norm);
 }
 
@@ -63,7 +61,9 @@ long double sigma_2_cl(long double* cl) {
 
 long double sigma_0_aml(long double** cos_ml, long double** sin_ml) {
 
-    long double sum = 0.0L;
+    long double sum = cos_ml[0][0] * cos_ml[0][0];
+
+    std::cout << std::endl << "I'm here " << sum << std::endl;
 
     for (unsigned int l = 1; l < nmod; ++l) {
         for (unsigned int m = 1; m < nmod; ++m) {

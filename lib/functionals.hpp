@@ -19,7 +19,7 @@ void points_classifier(long double** map_x, long double** map_y, long double** c
                        std::string name, unsigned int l_1, unsigned int l_2);
 
 void points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
-                       std::string name, long double** whitelist);
+                       std::string name, int** whitelist);
 
 void level_points_classifier(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                              long double level, std::string name);

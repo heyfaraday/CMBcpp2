@@ -5,11 +5,22 @@
 
 long double* n_vector_generator(unsigned int dim)
 {
-    long double* ptr = new long double [dim];
+    long double* ptr = new long double [dim]();
 
-    for (unsigned int i = 0; i < dim; ++i) {
-        ptr[i] = 0.0L;
-    }
+//    for (unsigned int i = 0; i < dim; ++i) {
+//        ptr[i] = 0.0L;
+//    }
+
+    return ptr;
+}
+
+int* n_int_vector_generator(unsigned int dim)
+{
+    int* ptr = new int [dim]();
+
+//    for (unsigned int i = 0; i < dim; ++i) {
+//        ptr[i] = 0;
+//    }
 
     return ptr;
 }
@@ -19,23 +30,52 @@ void n_vector_destroyer(long double* ptr)
     delete [] ptr;
 }
 
+void n_int_vector_destroyer(int* ptr)
+{
+    delete [] ptr;
+}
+
 long double** n_matrix_generator(unsigned int dim_1, unsigned int dim_2)
 {
     long double** ptr = new long double* [dim_1];
     for (unsigned int i = 0; i < dim_1; ++i) {
-        ptr[i] = new long double[dim_2];
+        ptr[i] = new long double[dim_2]();
     }
 
+//    for (unsigned int i = 0; i < dim_1; ++i) {
+//        for (unsigned int j = 0; j < dim_2; ++j) {
+//            ptr[i][j] = 0.0L;
+//        }
+//    }
+
+    return ptr;
+}
+
+int** n_int_matrix_generator(unsigned int dim_1, unsigned int dim_2)
+{
+    int** ptr = new int* [dim_1];
     for (unsigned int i = 0; i < dim_1; ++i) {
-        for (unsigned int j = 0; j < dim_2; ++j) {
-            ptr[i][j] = 0.0L;
-        }
+        ptr[i] = new int[dim_2]();
     }
+
+//    for (unsigned int i = 0; i < dim_1; ++i) {
+//        for (unsigned int j = 0; j < dim_2; ++j) {
+//            ptr[i][j] = 0.0L;
+//        }
+//    }
 
     return ptr;
 }
 
 void n_matrix_destroyer(long double** ptr, unsigned int dim_1)
+{
+    for (unsigned int i = 0; i < dim_1; ++i) {
+        delete [] ptr[i];
+    }
+    delete ptr;
+}
+
+void n_int_matrix_destroyer(int** ptr, unsigned int dim_1)
 {
     for (unsigned int i = 0; i < dim_1; ++i) {
         delete [] ptr[i];
