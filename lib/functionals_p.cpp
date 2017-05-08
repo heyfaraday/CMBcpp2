@@ -542,7 +542,6 @@ void singular_points_classifier(long double** q, long double** u, long double** 
                                 + (uy[i][j + 1] * (phi + map_parameter - phi_answer) / (map_parameter) + uy[i + 1][j + 1] * (phi_answer - phi) / (map_parameter))
                                   * (theta_answer - theta) / map_parameter;
 
-
                     condition_answer = condition_2(qx_answer, qy_answer, ux_answer, uy_answer);
 
                     fprintf(fp, "%.21Le %.21Le %u \n", phi_answer, theta_answer, condition_answer);

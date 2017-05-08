@@ -26,6 +26,18 @@ void o_map(std::string name, long double** map) {
     fclose(fp);
 }
 
+void o_map_norm(std::string name, long double** map) {
+
+    FILE* fp = fopen(name.c_str(), "w");
+
+    for (unsigned int i = 0; i <= npix; ++i) {
+        for (unsigned int j = 0; j <= npix / 2; ++j) {
+            fprintf(fp, "%.21Le %.21Le %.21Le \n", i * map_parameter, j * map_parameter, map[i][j]);
+        }
+    }
+    fclose(fp);
+}
+
 void i_map(std::string name, long double** map) {
 
     unsigned int i;

@@ -2,7 +2,15 @@
 
 void circles_area(long double** map, long double level, std::string name);
 
+void circles_area_sigma(long double** map, std::string name, long double sigma);
+
+void circles_area_map(long double** map, long double level, long double** out_map);
+
 void circles_length(long double** map, long double level, std::string name);
+
+void circles_length_sigma(long double** map, std::string name, long double sigma);
+
+void circles_length_map(long double** map, long double level, long double** out_map);
 
 void circles_points(long double** map_x, long double** map_y, long double** cos_ml, long double** sin_ml,
                     std::string name);

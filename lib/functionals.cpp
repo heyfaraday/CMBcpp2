@@ -59,6 +59,38 @@ long double area(long double** map, long double level, unsigned int l_1, unsigne
     return sum_without_norm / norm;
 }
 
+long double area(long double** map, long double level, unsigned int l_1, unsigned int l_2,
+                 unsigned int phi_1, unsigned int phi_2) {
+
+    long double sum_without_norm = 0.0L;
+    long double norm = 0.0L;
+
+    if (l_1 < 1 or l_1 > npix / 2 - 2 or l_2 < 1 or l_2 > npix / 2 - 2 or l_1 >= l_2) {
+        std::cout << "Wrong range! l_1: " << l_1 << " l_2: " << l_2 << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    if (phi_1 < 0 or phi_1 > npix - 1 or phi_2 < 0 or phi_2 > npix - 1 or phi_1 >= phi_2) {
+        std::cout << "Wrong range! phi_1: " << phi_1 << " phi_2: " << phi_2 << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    for (unsigned int i = phi_1; i < phi_2; ++i) {
+        for (unsigned int j = l_1; j < l_2 + 1; ++j) {
+
+            if (!is_equal(map[i][j], level) and !is_equal(map[i + 1][j], level)
+                and !is_equal(map[i][j + 1], level) and !is_equal(map[i + 1][j + 1], level)) {
+
+                if (map[i][j] + map[i + 1][j] + map[i][j + 1] + map[i + 1][j + 1] > level * 4.0L)
+                    sum_without_norm = sum_without_norm +
+                                       sinl(map_parameter * static_cast<long double>(j) + map_parameter / 2.0L);
+                norm = norm + sinl(map_parameter * static_cast<long double>(j) + map_parameter / 2.0L);
+            }
+        }
+    }
+    return sum_without_norm / norm;
+}
+
 long double length(long double** map, long double level) {
 
     long double l = 0.0L;
@@ -278,6 +310,119 @@ long double length(long double** map, long double level, unsigned int l_1, unsig
     return l / PI;
 }
 
+long double length(long double** map, long double level, unsigned int l_1, unsigned int l_2,
+                   unsigned int phi_1, unsigned int phi_2) {
+
+    long double l = 0.0L;
+
+    long double phi;
+    long double theta;
+
+    long double phi1;
+    long double phi2;
+    long double theta1;
+    long double theta2;
+
+    if (l_1 < 1 or l_1 > npix / 2 - 2 or l_2 < 1 or l_2 > npix / 2 - 2 or l_1 >= l_2) {
+        std::cout << "Wrong range! l_1: " << l_1 << " l_2: " << l_2 << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    for (unsigned int i = phi_1; i < phi_2; ++i) {
+        for (unsigned int j = l_1; j < l_2 + 1; ++j) {
+
+            phi = 2.0L * PI * i / long_npix;
+            theta = 2.0L * PI * j / long_npix;
+
+            if ((map[i][j] - level) == 0.0L and ((map[i][j + 1] - level) == 0.0L or (map[i + 1][j] - level) == 0.0L)) {
+                l += 0.0L;
+            }
+
+            if ((map[i][j] - level) * (map[i][j + 1] - level) < 0.0L) {
+
+                if ((map[i][j] - level) * (map[i + 1][j] - level) < 0.0L) {
+
+                    phi1 = phi;
+                    theta1 = theta + map_parameter * fabsl((map[i][j] - level))
+                                     / (fabsl((map[i][j] - level)) + fabsl((map[i][j + 1] - level)));
+
+                    phi2 = phi + map_parameter * fabsl((map[i][j] - level))
+                                 / (fabsl((map[i][j] - level)) + fabsl((map[i + 1][j] - level)));
+                    theta2 = theta;
+
+                    l += s2(phi1, phi2, theta1, theta2);
+
+                } else if ((map[i + 1][j] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                    phi1 = phi;
+                    theta1 = theta + map_parameter * fabsl((map[i][j] - level))
+                                     / (fabsl((map[i][j] - level)) + fabsl((map[i][j + 1] - level)));
+
+                    phi2 = phi + map_parameter;
+                    theta2 = theta + map_parameter * fabsl((map[i + 1][j] - level))
+                                     / (fabsl((map[i + 1][j] - level)) + fabsl((map[i + 1][j + 1] - level)));
+
+                    l += s2(phi1, phi2, theta1, theta2);
+
+                } else if ((map[i][j + 1] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                    phi1 = phi;
+                    theta1 = theta + map_parameter * fabsl((map[i][j] - level))
+                                     / (fabsl((map[i][j] - level)) + fabsl((map[i][j + 1] - level)));
+
+                    phi2 = phi + map_parameter * fabsl((map[i][j + 1] - level))
+                                 / (fabsl((map[i][j + 1] - level)) + fabsl((map[i + 1][j + 1] - level)));
+                    theta2 = theta + map_parameter;
+
+                    l += s2(phi1, phi2, theta1, theta2);
+                }
+            } else if ((map[i][j] - level) * (map[i + 1][j] - level) < 0.0L) {
+
+                if ((map[i + 1][j] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                    phi1 = phi + map_parameter * fabsl((map[i][j] - level))
+                                 / (fabsl((map[i][j] - level)) + fabsl((map[i + 1][j] - level)));
+                    theta1 = theta;
+
+                    phi2 = phi + map_parameter;
+                    theta2 = theta + map_parameter * fabsl((map[i + 1][j] - level))
+                                     / (fabsl((map[i + 1][j] - level)) + fabsl((map[i + 1][j + 1] - level)));
+
+                    l += s2(phi1, phi2, theta1, theta2);
+
+                } else if ((map[i][j + 1] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                    phi1 = phi + map_parameter * fabsl((map[i][j] - level))
+                                 / (fabsl((map[i][j] - level)) + fabsl((map[i + 1][j] - level)));
+                    theta1 = theta;
+
+                    phi2 = phi + map_parameter * fabsl((map[i][j + 1] - level))
+                                 / (fabsl((map[i][j + 1] - level)) + fabsl((map[i + 1][j + 1] - level)));
+                    theta2 = theta + map_parameter;
+
+                    l += s2(phi1, phi2, theta1, theta2);
+                }
+            } else if ((map[i + 1][j] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                if ((map[i][j + 1] - level) * (map[i + 1][j + 1] - level) < 0.0L) {
+
+                    phi1 = phi + map_parameter;
+                    theta1 = theta + map_parameter * fabsl((map[i + 1][j] - level))
+                                     / (fabsl((map[i + 1][j] - level)) + fabsl((map[i + 1][j + 1] - level)));
+
+                    phi2 = phi + map_parameter * fabsl((map[i][j + 1] - level))
+                                 / (fabsl((map[i][j + 1] - level)) + fabsl((map[i + 1][j + 1] - level)));
+                    theta2 = theta + map_parameter;
+
+                    l += s2(phi1, phi2, theta1, theta2);
+                }
+            }
+        }
+    }
+
+    return l / PI;
+}
+
 int condition_1(long double xx, long double yy, long double xy) {
     if ((xx * yy - xy * xy >= 0.0L and xx >= 0.0L) or (xx * yy - xy * xy >= 0.0L and yy >= 0.0L)) {
         return 0;
@@ -303,7 +448,7 @@ int condition_2(long double qx, long double qy, long double ux, long double uy) 
         mean_root1 = mean_t_solver(qx, qy, ux, uy, root1);
         mean_root2 = mean_t_solver(qx, qy, ux, uy, root2);
 
-        if (root1 == 0 and root2 == 0) {
+        if (is_equal(root1, 0.0l) and is_equal(root2, 0.0l)) {
             return 3;
         } else {
             if ((mean_root1 > 0.0L and mean_root2 < 0.0L) or (mean_root1 < 0.0L and  mean_root2 > 0.0L)) {

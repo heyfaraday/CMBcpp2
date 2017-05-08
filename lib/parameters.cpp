@@ -83,14 +83,18 @@ const unsigned int nmod = static_cast<unsigned int>(read_from_file("nmod"));
 const unsigned int nback = static_cast<unsigned int>(read_from_file("nback"));
 const unsigned int nmonte = static_cast<unsigned int>(read_from_file("nmonte"));
 const unsigned int nring = static_cast<unsigned int>(read_from_file("nring"));
+const unsigned int nphi = static_cast<unsigned int>(read_from_file("nphi"));
 const unsigned int hring = static_cast<unsigned int>(read_from_file("hring"));
+const unsigned int hphi = static_cast<unsigned int>(read_from_file("hphi"));
 
 const long double long_npix = static_cast<long double>(npix);
 const long double long_nmod = static_cast<long double>(nmod);
 const long double long_nback = static_cast<long double>(nback);
 const long double long_nmonte = static_cast<long double>(nmonte);
 const long double long_nring = static_cast<long double>(nring);
+const long double long_nphi = static_cast<long double>(nphi);
 const long double long_hring = static_cast<long double>(hring);
+const long double long_hphi = static_cast<long double>(hphi);
 
 const long double map_parameter = 2.0L * PI / long_npix;
 
