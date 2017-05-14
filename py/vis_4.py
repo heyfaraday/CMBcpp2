@@ -4,8 +4,8 @@ from math import pi
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-N = 2048
-projection = 'moll'
+N = 256
+projection = 'cyl'
 save_as_png = True
 save_as_svg = False
 
@@ -20,7 +20,7 @@ for i in range(0, int(N + 1)):
         x[i][j] = 2.0 * i / N * pi - pi
         y[i][j] = 2.0 * j / N * pi - pi / 2.0
 
-for j in xrange(54, 70):
+for j in xrange(47, 48):
 
     name = '../bin/map_test_area' + str(j) + '.dat'
 

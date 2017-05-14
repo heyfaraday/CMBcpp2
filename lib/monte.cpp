@@ -485,3 +485,12 @@ void level_singular_points(long double** q, long double** u, long double** q_cos
     }
 
 }
+
+
+void minkovscki_on_sphere(long double** map, long double** map_out, long double level, long double length) {
+
+
+
+
+
+}

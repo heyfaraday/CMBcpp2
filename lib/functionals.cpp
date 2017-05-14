@@ -340,6 +340,8 @@ long double length(long double** map, long double level, unsigned int l_1, unsig
 
             if ((map[i][j] - level) * (map[i][j + 1] - level) < 0.0L) {
 
+                std::cout << "i: " << i << " j: " << j << std::endl;
+
                 if ((map[i][j] - level) * (map[i + 1][j] - level) < 0.0L) {
 
                     phi1 = phi;

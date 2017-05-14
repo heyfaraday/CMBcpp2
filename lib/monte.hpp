@@ -27,3 +27,5 @@ void level_points(long double** map_x, long double** map_y, long double** cos_ml
 
 void level_singular_points(long double** q, long double** u, long double** q_cos_ml, long double** q_sin_ml,
                            long double** u_cos_ml, long double** u_sin_ml, std::string name);
+
+void minkovscki_on_sphere(long double** map, long double** map_out, long double level);

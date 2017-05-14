@@ -1,9 +1,9 @@
-npix        4096
-nmod        2048
-nback       2048
+npix        256
+nmod        128
+nback       128
 nmonte      5
-nring       142
-nphi        204
+nring       20
+nphi        25
 hring       5
 hphi        10
 lower_level     -2.0

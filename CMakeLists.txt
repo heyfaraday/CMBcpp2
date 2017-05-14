@@ -26,6 +26,7 @@ set(SOURCE_FILES_v_1_2_ src/v_1_2_.cpp)
 set(SOURCE_FILES_print_f_test src/print_f_test.cpp)
 set(SOURCE_FILES_v_0_9_ src/v_0_9_.cpp)
 set(SOURCE_FILES_v_1_3_ src/v_1_3_.cpp)
+set(SOURCE_FILES_length src/length_test.cpp)
 
 set(SOURCE_FILES_lib2_test_0_1_ src/lib2_test_0_1_.cpp)
 
